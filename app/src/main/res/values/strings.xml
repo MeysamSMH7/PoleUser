@@ -1,3 +1,40 @@
 <resources>
     <string name="app_name">Pole User</string>
+
+    <!--login Activity-->
+    <string name="edtPhoneNumber">شماره تلفن</string>
+    <string name="edtPassword">رمز عبور</string>
+    <string name="btnLogin">ورود</string>
+    <string name="btnRegister">ثبت نام</string>
+
+    <!--btnRegister PhoneNum-->
+    <string name="btnSendCode">ارسال کد</string>
+    <string name="btnBack">بازگشت</string>
+
+    <!--Register ==> code-->
+    <string name="edtGetCode">محل درج کد دریافتی</string>
+    <string name="txtTimer">زمان 2:00</string>
+    <string name="btnCheckCode">بررسی کد</string>
+    <string name="btnWrongPhoneNum">شماره اشتباه؟</string>
+
+    <!--Register ==> Register Finish-->
+    <string name="edtFirstName">نام</string>
+    <string name="edtLastName">نام خانوادگی</string>
+    <string name="edtRePassword">تکرار رمز عبور</string>
+    <string name="edtPostalCode">کد پستی</string>
+    <string name="edtAddress">آدرس</string>
+    <string name="btnFinishRegister">تکمیل ثبت نام</string>
+    <string name="btnFinish">انصراف و بستن</string>
+
+
+    <!--Register ==> ReGet Code-->
+    <string name="txtYourPass">رمز شما</string>
+    <string name="btnGetPass">دریافت رمز</string>
+
+
+    <!--timer-->
+    <string name="min">دقیقه</string>
+    <string name="sec">ثانیه</string>
+    <string name="finishTimer">زمان شما به پایان رسید لطفا دوباره تلاش کنید!</string>
+
 </resources>
