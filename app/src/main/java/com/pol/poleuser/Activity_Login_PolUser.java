@@ -48,6 +48,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
     //public Variable
     private CountDownTimer countDownTimer;
     private String ranNum;
+    private int countbtnClick = 0;
 
 
     @Override
@@ -206,7 +207,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
     View.OnClickListener btnCheckCodeOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (txtTimer.getText().toString() == getString(R.string.finishTimer)){
+            if (txtTimer.getText().toString().equals(getString(R.string.finishTimer))){
                 LinearLogin.setVisibility(View.GONE);
                 LinearRegPhoneNum.setVisibility(View.VISIBLE);
                 LinearRegCheckCode.setVisibility(View.GONE);
@@ -216,8 +217,11 @@ public class Activity_Login_PolUser extends AppCompatActivity {
                 countDownTimer.cancel();
             }else if (edtGetCode.getText().toString().equals(ranNum)){
                 Toast.makeText(Activity_Login_PolUser.this, "کد صحیح می باشد!", Toast.LENGTH_SHORT).show();
-            }else {
+            }else if (countbtnClick < 4){
+                countbtnClick++;
                 Toast.makeText(Activity_Login_PolUser.this, "کد غلط می باشد!", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(Activity_Login_PolUser.this, "بیش از اندازه امتحان کردید!", Toast.LENGTH_SHORT).show();
             }
         }
     };
