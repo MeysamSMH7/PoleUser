@@ -12,24 +12,32 @@ public class Activity_SplashScrean_PolUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screan_poluser);
-        SharedPreferences firstOpen = getSharedPreferences("polUser" , 0);
+        SharedPreferences firstOpen = getSharedPreferences("polUser", 0);
 
-        final boolean getStatus = firstOpen.getBoolean("statusLogin?" , false);
+        final boolean getStatusWellCome = firstOpen.getBoolean("statusWellcome?", false);
+        final boolean getStatusLogin = firstOpen.getBoolean("statusLogin?", false);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (getStatus){
-                    Intent intent = new Intent(Activity_SplashScrean_PolUser.this , Activity_Login_PolUser.class);
+                if (!getStatusWellCome) {
+                    Intent intent = new Intent(Activity_SplashScrean_PolUser.this, Activity_Wellcome_PolUser.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    Intent intent = new Intent(Activity_SplashScrean_PolUser.this , Activity_Wellcome_PolUser.class);
+                } else if (!getStatusLogin) {
+                    Intent intent = new Intent(Activity_SplashScrean_PolUser.this, Activity_Login_PolUser.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(Activity_SplashScrean_PolUser.this, Activity_main_PolUser.class);
                     startActivity(intent);
                     finish();
                 }
+
+
             }
-        },3000);
+
+        }, 3000);
 
 
     }

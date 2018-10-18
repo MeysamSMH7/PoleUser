@@ -8,6 +8,6 @@ public class Activity_main_PolUser extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screan_poluser);
+        setContentView(R.layout.activity_main_poluser);
     }
 }

@@ -38,7 +38,7 @@
             android:weightSum="10">
 
             <Button
-                android:id="@+id/btnRegisterLogin"
+                android:onClick="btnRegisterLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:id="@+id/btnSendCode"
+                android:onClick="btnSendCode"
                 android:text="@string/btnSendCode" />
 
         </LinearLayout>
@@ -147,7 +147,7 @@
                 android:text="@string/btnWrongPhoneNum" />
 
             <Button
-                android:id="@+id/btnCheckCode"
+                android:onClick="btnCheckCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -165,7 +165,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <EditText
             android:id="@+id/edtFirstName"
@@ -240,10 +240,10 @@
                 android:text="@string/btnFinish" />
 
             <Button
-                android:id="@+id/btnFinishRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:onClick="btnFinishRegister"
                 android:text="@string/btnFinishRegister" />
 
         </LinearLayout>
@@ -288,7 +288,7 @@
                 android:text="@string/btnBack" />
 
             <Button
-                android:id="@+id/btnGetPass"
+                android:onClick="btnGetPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"

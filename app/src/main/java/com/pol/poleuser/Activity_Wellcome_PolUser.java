@@ -79,7 +79,7 @@ public class Activity_Wellcome_PolUser extends AppCompatActivity {
             {
                 SharedPreferences wellcome = getSharedPreferences("polUser" , 0);
                 SharedPreferences.Editor editor = wellcome.edit();
-                editor.putBoolean("statusLogin?" , true);
+                editor.putBoolean("statusWellcome?" , true);
                 editor.commit();
                 Intent intent = new Intent(Activity_Wellcome_PolUser.this , Activity_Login_PolUser.class);
                 startActivity(intent);
