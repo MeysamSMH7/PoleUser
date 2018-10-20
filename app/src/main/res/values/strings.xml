@@ -1,11 +1,18 @@
 <resources>
     <string name="app_name">Pole User</string>
 
+    <!--Links-->
+    <string name="LinkAddUser">http://10.0.3.2/pol/addUser.php</string>
+    <string name="LinkLoginUser">http://10.0.3.2/pol/selectUser.php</string>
+    <string name="LinkGetPass">http://10.0.3.2/pol/getPassWord.php</string>
+
+
     <!--login Activity-->
     <string name="edtPhoneNumber">شماره تلفن</string>
     <string name="edtPassword">رمز عبور</string>
     <string name="btnLogin">ورود</string>
     <string name="btnRegister">ثبت نام</string>
+    <string name="txtForgetPass">آیا رمز خود را فراموش کرده اید؟</string>
 
     <!--btnRegister PhoneNum-->
     <string name="btnSendCode">ارسال کد</string>
@@ -25,6 +32,8 @@
     <string name="edtAddress">آدرس</string>
     <string name="btnFinishRegister">تکمیل ثبت نام</string>
     <string name="btnFinish">انصراف و بستن</string>
+    <string name="doneRegister">موفق شدید!</string>
+    <string name="doneNotRegister">موفق نشدید!</string>
 
 
     <!--Register ==> ReGet Code-->
@@ -36,5 +45,7 @@
     <string name="min">دقیقه</string>
     <string name="sec">ثانیه</string>
     <string name="finishTimer">زمان شما به پایان رسید لطفا دوباره تلاش کنید!</string>
+
+
 
 </resources>

@@ -3,6 +3,8 @@ package com.pol.poleuser;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pol.poleuser.connectClasses.connect_GetPass;
+import com.pol.poleuser.connectClasses.connect_LoginUser;
 import com.pol.poleuser.connectClasses.connect_addUser;
 
 import org.json.JSONArray;
@@ -28,44 +32,39 @@ import java.util.concurrent.TimeUnit;
 public class Activity_Login_PolUser extends AppCompatActivity {
 
     //LinearLayout
-    LinearLayout LinearLogin, LinearRegPhoneNum, LinearRegCheckCode, LinearRegFinish, LinearRegForgetPass;
-
+    private LinearLayout LinearLogin, LinearRegPhoneNum, LinearRegCheckCode, LinearRegFinish, LinearRegForgetPass;
 
     //Login
-    EditText edtPhoneNumLogin, edtPassLogin;
+    private EditText edtPhoneNumLogin, edtPassLogin;
 
     //LinearRegPhoneNum
-    EditText edtPhoneNumRegister;
+    private EditText edtPhoneNumRegister;
 
     //LinearRegCheckCode
-    TextView txtPhoneNum, txtTimer, txtShowCode;
-    EditText edtGetCode;
+    private TextView txtPhoneNum, txtTimer, txtShowCode;
+    private EditText edtGetCode;
 
     //LinearRegFinish
-    EditText edtFirstName, edtLastName, edtPhoneNumber, edtPassword, edtRePassword, edtPostalCode, edtAddress;
-    Spinner spnState, spnCity;
+    private EditText edtFirstName, edtLastName, edtPhoneNumber, edtPassword, edtRePassword, edtPostalCode, edtAddress;
+    private Spinner spnState, spnCity;
 
     //LinearRegForgetPass
-    EditText edtPhoneNumberForget;
-    TextView txtYourPass;
+    private EditText edtPhoneNumberForget;
+    private TextView txtYourPass;
 
-    //public Variable
+    //public Variable•
     private CountDownTimer countDownTimer;
     private String ranNum;
     private int countbtnClick = 0;
-    String FirstName = "", LastName = "", PhoneNum = "", PassWord = "", CodPosty = "", StateName = "", CityName = "", Address = "";
-
-
-    //public Static Strings for Connect Classes ************************************
-    public static String getData_AddUser = "";
-
-
-
+    private String FirstName = "", LastName = "", PhoneNum = "", PassWord = "", CodPosty = "", StateName = "", CityName = "", Address = "";
+    public String getDataServerLogin = "";
+    private SharedPreferences preferencesLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_poluser);
+        preferencesLogin = getSharedPreferences("polUser", 0);
 
         //LinearLayout
         LinearLogin = (LinearLayout) findViewById(R.id.LinearLogin);
@@ -109,13 +108,17 @@ public class Activity_Login_PolUser extends AppCompatActivity {
         LinearRegFinish.setVisibility(View.GONE);
         LinearRegForgetPass.setVisibility(View.GONE);
 
-
     }
 
 
     //Login **************************************************************************
 
     public void btnLoginOnClick(View view) {
+
+        PhoneNum = edtPhoneNumLogin.getText().toString();
+        PassWord = edtPassLogin.getText().toString();
+
+        new connect_LoginUser(getString(R.string.LinkLoginUser), resultLogin, PhoneNum, PassWord).execute();
 
     }
 
@@ -126,6 +129,27 @@ public class Activity_Login_PolUser extends AppCompatActivity {
         LinearRegFinish.setVisibility(View.GONE);
         LinearRegForgetPass.setVisibility(View.GONE);
     }
+
+    connect_LoginUser.IshowLoginRes resultLogin = new connect_LoginUser.IshowLoginRes() {
+        @Override
+        public void loginUserResult(String res) {
+
+            getDataServerLogin = res;
+
+            if (res.contains("NO!")) {
+                Toast.makeText(Activity_Login_PolUser.this, "شماره تلفن یا پسورد شما اشتباه می باشد!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(Activity_Login_PolUser.this, "خوش اومدی!", Toast.LENGTH_SHORT).show();
+
+                GetJSONArrayLogin();
+
+                Intent intent = new Intent(Activity_Login_PolUser.this, Activity_main_PolUser.class);
+                startActivity(intent);
+                finish();
+
+            }
+        }
+    };
 
     //LinearRegPhoneNum **********************************************************************
 
@@ -181,6 +205,14 @@ public class Activity_Login_PolUser extends AppCompatActivity {
 
 
         }
+    }
+
+    public void txtForgetPass(View view) {
+        LinearLogin.setVisibility(View.GONE);
+        LinearRegPhoneNum.setVisibility(View.GONE);
+        LinearRegCheckCode.setVisibility(View.GONE);
+        LinearRegFinish.setVisibility(View.GONE);
+        LinearRegForgetPass.setVisibility(View.VISIBLE);
     }
 
     //LinearRegCheckCode *******************************************************************************
@@ -244,35 +276,68 @@ public class Activity_Login_PolUser extends AppCompatActivity {
         Address = edtAddress.getText().toString();
 
 
-        new connect_addUser("http://10.0.3.2/pol/addUser.php" , FirstName , LastName , PhoneNum , PassWord , CodPosty , StateName , CityName , Address).execute();
-
-//        Toast.makeText(this, "اطلاعات شما ثبت گردید", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, getData_AddUser+"", Toast.LENGTH_SHORT).show();
-
-//        SharedPreferences wellcome = getSharedPreferences("polUser" , 0);
-//        SharedPreferences.Editor editor = wellcome.edit();
-//        editor.putBoolean("statusLogin?" , true);
-//        editor.commit();
-
-//        Intent intent = new Intent(Activity_Login_PolUser.this , Activity_main_PolUser.class);
-//        startActivity(intent);
-//        finish();
+        new connect_addUser(getString(R.string.LinkAddUser), resultAddUser, FirstName, LastName, PhoneNum, PassWord, CodPosty, StateName, CityName, Address).execute();
 
 
     }
 
+    connect_addUser.IshowAddUserRes resultAddUser = new connect_addUser.IshowAddUserRes() {
+        @Override
+        public void addUserResult(String res) {
 
-    //LinearRegForgetPass **************************************************************************
+            if (res.contains("ok!")) {
+
+                SharedPreferences.Editor editor = preferencesLogin.edit();
+                editor.putBoolean("statusLogin?", true);
+                editor.commit();
+
+                Toast.makeText(Activity_Login_PolUser.this, getText(R.string.doneRegister), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(Activity_Login_PolUser.this, Activity_main_PolUser.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(Activity_Login_PolUser.this, getText(R.string.doneNotRegister), Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
+//LinearRegForgetPass **************************************************************************
 
     public void btnBackOnClickForgetPass(View view) {
+        LinearLogin.setVisibility(View.VISIBLE);
+        LinearRegPhoneNum.setVisibility(View.GONE);
+        LinearRegCheckCode.setVisibility(View.GONE);
+        LinearRegFinish.setVisibility(View.GONE);
+        LinearRegForgetPass.setVisibility(View.GONE);
 
+        edtPhoneNumberForget.setText("");
     }
 
     public void btnGetPass(View view) {
 
+        PhoneNum = edtPhoneNumberForget.getText().toString();
+
+        new connect_GetPass(getString(R.string.LinkGetPass), resultGetPass, PhoneNum).execute();
+
     }
 
-    //Random Number ***************************************************************
+    connect_GetPass.IgetPassRes resultGetPass = new connect_GetPass.IgetPassRes() {
+        @Override
+        public void getPassUserResult(String res) {
+
+            if (res.contains("no!")) {
+                Toast.makeText(Activity_Login_PolUser.this, "شماره وارد شده موجود نمی باشد!", Toast.LENGTH_SHORT).show();
+                edtPhoneNumberForget.setText("");
+                txtYourPass.setText("");
+            } else {
+                txtYourPass.setText("your password:\n" + res);
+            }
+
+        }
+    };
+
+//Random Number ***************************************************************
 
     private String RandomNum() {
         String Num = "";
@@ -288,30 +353,33 @@ public class Activity_Login_PolUser extends AppCompatActivity {
 
     //GetJson *****************************************************************************
 
-//    public String GetJSONArray(){
-//
-//        try{
-//
-//            JSONArray jsonArray = new JSONArray(getData_AddUser);
-//
-//            for (int i = 0 ; i<jsonArray.length() ; i++){
-//
-//                JSONObject object = jsonArray.getJSONObject(i);
-//
-//
-//
-//
-//            }
-//
-//
-//
-//        }catch (Exception e){
-//            Log.d("err" , e.getMessage());
-//        }
-//
-//        return confirm;
-//
-//    }
+    public void GetJSONArrayLogin() {
+
+        try {
+            SharedPreferences.Editor editor = preferencesLogin.edit();
+            JSONArray jsonArray = new JSONArray(getDataServerLogin);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject object = jsonArray.getJSONObject(i);
+
+                editor.putInt("ID_User", object.getInt("ID"));
+                editor.putString("FirstName_User", object.getString("FirstName"));
+                editor.putString("LastName_User", object.getString("LastName"));
+                editor.putInt("PhoneNum_User", object.getInt("PhoneNum"));
+                editor.putString("StateName_User", object.getString("StateName"));
+                editor.putString("CityName_User", object.getString("CityName"));
+                editor.putInt("CodPosty_User", object.getInt("CodPosty"));
+                editor.putString("Address_User", object.getString("Address"));
+                editor.putString("Password_User", object.getString("Password"));
+                editor.putBoolean("statusLogin?", true);
+                editor.commit();
+            }
+
+        } catch (Exception e) {
+            Log.d("err", e.getMessage());
+        }
+    }
 
 
 }

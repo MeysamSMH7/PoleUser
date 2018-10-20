@@ -21,8 +21,10 @@ public class connect_addUser extends AsyncTask{
     public String StateName = "";
     public String CityName = "";
     public String Address = "";
+    private IshowAddUserRes _IAddUserResult;
+    StringBuilder stringBuilder;
 
-    public connect_addUser(String link , String FirstName , String LastName , String PhoneNum , String PassWord , String CodPosty ,
+    public connect_addUser(String link , IshowAddUserRes result , String FirstName , String LastName , String PhoneNum , String PassWord , String CodPosty ,
                            String StateName , String CityName , String Address){
         this.link = link;
         this.FirstName = FirstName;
@@ -33,6 +35,11 @@ public class connect_addUser extends AsyncTask{
         this.StateName = StateName;
         this.CityName = CityName;
         this.Address = Address;
+        _IAddUserResult = result;
+    }
+
+    public interface IshowAddUserRes{
+        public void addUserResult(String res);
     }
 
 
@@ -60,7 +67,7 @@ public class connect_addUser extends AsyncTask{
             writer.flush();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder = new StringBuilder();
 
             String data = null;
 
@@ -68,12 +75,24 @@ public class connect_addUser extends AsyncTask{
                 stringBuilder.append(data);
             }
 
-            Activity_Login_PolUser.getData_AddUser = stringBuilder.toString();
+
+
+//            Activity_Login_PolUser.getData_AddUser = stringBuilder.toString();
 
         }catch (Exception e){
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Object o) {
+        super.onPostExecute(o);
+
+        if (_IAddUserResult != null) {
+            _IAddUserResult.addUserResult(stringBuilder.toString());
+        }
+
     }
 }
