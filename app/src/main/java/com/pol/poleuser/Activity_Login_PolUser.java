@@ -135,18 +135,21 @@ public class Activity_Login_PolUser extends AppCompatActivity {
         public void loginUserResult(String res) {
 
             getDataServerLogin = res;
+            if (!res.contains("[]")) {
+                if (res.contains("NO!")) {
+                    Toast.makeText(Activity_Login_PolUser.this, "شماره تلفن یا پسورد شما اشتباه می باشد!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Activity_Login_PolUser.this, "خوش اومدی!", Toast.LENGTH_SHORT).show();
 
-            if (res.contains("NO!")) {
-                Toast.makeText(Activity_Login_PolUser.this, "شماره تلفن یا پسورد شما اشتباه می باشد!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(Activity_Login_PolUser.this, "خوش اومدی!", Toast.LENGTH_SHORT).show();
+                    GetJSONArrayLogin();
 
-                GetJSONArrayLogin();
+                    Intent intent = new Intent(Activity_Login_PolUser.this, Activity_main_PolUser.class);
+                    startActivity(intent);
+                    finish();
 
-                Intent intent = new Intent(Activity_Login_PolUser.this, Activity_main_PolUser.class);
-                startActivity(intent);
-                finish();
-
+                }
+            }else {
+                Toast.makeText(Activity_Login_PolUser.this, "هیچی پر نکردید!", Toast.LENGTH_SHORT).show();
             }
         }
     };

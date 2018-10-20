@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:inputType="phone"
             android:hint="@string/edtPhoneNumber" />
 
         <EditText
@@ -137,6 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:inputType="number"
             android:hint="@string/edtGetCode" />
 
 
@@ -221,6 +223,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:inputType="number"
             android:hint="@string/edtPostalCode" />
 
         <Spinner
@@ -271,13 +274,14 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/edtPhoneNumberForget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:inputType="phone"
             android:hint="@string/edtPhoneNumber" />
 
         <TextView
