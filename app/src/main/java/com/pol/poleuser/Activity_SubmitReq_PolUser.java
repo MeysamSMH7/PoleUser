@@ -187,6 +187,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
                         StateNameServer + "\n" +
                         "end", Toast.LENGTH_SHORT).show();
 
+
     }
 
     connect_SubmitReq.ISubmitReq resultSubReq = new connect_SubmitReq.ISubmitReq() {
