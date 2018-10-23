@@ -37,7 +37,7 @@ public class Activity_SplashScrean_PolUser extends AppCompatActivity {
 
             }
 
-        }, 3000);
+        }, 500);
 
 
     }

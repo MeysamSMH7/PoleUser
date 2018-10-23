@@ -1,4 +1,4 @@
-package com.pol.poleuser;
+package com.pol.poleuser.classes;
 
 import android.content.Context;
 import android.view.View;

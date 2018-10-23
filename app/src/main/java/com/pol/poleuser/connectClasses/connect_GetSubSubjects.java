@@ -9,23 +9,21 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-public class connect_LoginUser extends AsyncTask {
+public class connect_GetSubSubjects extends AsyncTask {
 
     public String link = "";
-    public String PhoneNum = "";
-    public String PassWord = "";
-    private connect_LoginUser.IshowLoginRes _IAddUserResult;
+    public String stateName = "";
+    private connect_GetSubSubjects.IgetSubRes _IGetSubSujectsResult;
     StringBuilder stringBuilder;
 
-    public connect_LoginUser(String link, connect_LoginUser.IshowLoginRes result, String PhoneNum, String PassWord) {
+    public connect_GetSubSubjects(String link, connect_GetSubSubjects.IgetSubRes result, String stateName) {
         this.link = link;
-        this.PhoneNum = PhoneNum;
-        this.PassWord = PassWord;
-        _IAddUserResult = result;
+        this.stateName = stateName;
+        _IGetSubSujectsResult = result;
     }
 
-    public interface IshowLoginRes {
-        public void loginUserResult(String res);
+    public interface IgetSubRes {
+        public void getSubSujectsResult(String res);
     }
 
 
@@ -34,8 +32,7 @@ public class connect_LoginUser extends AsyncTask {
 
         try {
 
-            String sendData = URLEncoder.encode("PhoneNum", "UTF8") + "=" + URLEncoder.encode(PhoneNum, "UTF8");
-            sendData += "&" + URLEncoder.encode("Password", "UTF8") + "=" + URLEncoder.encode(PassWord, "UTF8");
+            String sendData = URLEncoder.encode("State", "UTF8") + "=" + URLEncoder.encode(stateName, "UTF8");
 
             URL url = new URL(link);
             URLConnection connection = url.openConnection();
@@ -55,13 +52,9 @@ public class connect_LoginUser extends AsyncTask {
                 stringBuilder.append(data);
             }
 
-
-//            Activity_Login_PolUser.getData_AddUser = stringBuilder.toString();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         return null;
     }
@@ -71,8 +64,8 @@ public class connect_LoginUser extends AsyncTask {
         super.onPostExecute(o);
 
         try {
-            if (_IAddUserResult != null) {
-                _IAddUserResult.loginUserResult(stringBuilder.toString());
+            if (_IGetSubSujectsResult != null) {
+                _IGetSubSujectsResult.getSubSujectsResult(stringBuilder.toString());
             }
         }catch (Exception e){
             e.printStackTrace();

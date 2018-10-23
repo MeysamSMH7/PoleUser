@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity_main_PolUser" />
-        <activity android:name=".Activity_SplashScrean_PolUser">
+        <activity
+            android:name=".Activity_SplashScrean_PolUser"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,6 +23,8 @@
         </activity>
         <activity android:name=".Activity_Login_PolUser" />
         <activity android:name=".Activity_Wellcome_PolUser" />
+        <activity android:name=".Activity_SubCategory_PolUser" />
+        <activity android:name=".Activity_SubmitReq_PolUser"></activity>
     </application>
 
 </manifest>

@@ -5,7 +5,8 @@
     <string name="LinkAddUser">http://10.0.3.2/pol/addUser.php</string>
     <string name="LinkLoginUser">http://10.0.3.2/pol/selectUser.php</string>
     <string name="LinkGetPass">http://10.0.3.2/pol/getPassWord.php</string>
-
+    <string name="LinkGetSubSubject">http://10.0.3.2/pol/getSubSubject.php</string>
+    <string name="LinkRequestUser">http://10.0.3.2/pol/req/requestUser.php</string>
 
     <!--login Activity-->
     <string name="edtPhoneNumber">شماره تلفن</string>
@@ -35,17 +36,26 @@
     <string name="doneRegister">موفق شدید!</string>
     <string name="doneNotRegister">موفق نشدید!</string>
 
-
     <!--Register ==> ReGet Code-->
     <string name="txtYourPass">رمز شما</string>
     <string name="btnGetPass">دریافت رمز</string>
-
 
     <!--timer-->
     <string name="min">دقیقه</string>
     <string name="sec">ثانیه</string>
     <string name="finishTimer">زمان شما به پایان رسید لطفا دوباره تلاش کنید!</string>
 
+    <!--Submit Req-->
+    <string name="txtReqSubReq">خدمات درخواستی:</string>
+    <string name="txtExplainSubReq">توضیح:</string>
+    <string name="edtExplainSubReq">توضیح خودتان را در این قسمت وارد کنید.</string>
+    <string name="txtAddressSubReq">آدرس:</string>
+    <string name="edtAddressSubReq">آدرس خود را این در این قسمت وارد کنید</string>
+    <string name="txtPeriodTimeSubReq">بازه ی زمانی</string>
+    <string name="radiobtnPeriodTime1SubReq">از ساعت 8 الی 12</string>
+    <string name="radiobtnPeriodTime2SubReq">از ساعت 12 الی 17</string>
+    <string name="radiobtnPeriodTime3SubReq">از ساعت 17 الی 20</string>
+    <string name="btnSubmitReqSubReq">ارسال درخواست</string>
 
 
 </resources>

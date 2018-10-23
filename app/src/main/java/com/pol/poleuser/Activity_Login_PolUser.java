@@ -3,21 +3,17 @@ package com.pol.poleuser;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pol.poleuser.classes.SpinnerClass;
 import com.pol.poleuser.connectClasses.connect_GetPass;
 import com.pol.poleuser.connectClasses.connect_LoginUser;
 import com.pol.poleuser.connectClasses.connect_addUser;
@@ -26,7 +22,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Locale;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Activity_Login_PolUser extends AppCompatActivity {
@@ -52,7 +47,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
     private EditText edtPhoneNumberForget;
     private TextView txtYourPass;
 
-    //public Variable•
+    //public Variable
     private CountDownTimer countDownTimer;
     private String ranNum;
     private int countbtnClick = 0;
@@ -354,7 +349,8 @@ public class Activity_Login_PolUser extends AppCompatActivity {
     }
 
 
-    //GetJson *****************************************************************************
+
+//GetJson *****************************************************************************
 
     public void GetJSONArrayLogin() {
 
