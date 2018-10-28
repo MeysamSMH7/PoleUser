@@ -7,6 +7,10 @@
     <string name="LinkGetPass">http://10.0.3.2/pol/getPassWord.php</string>
     <string name="LinkGetSubSubject">http://10.0.3.2/pol/getSubSubject.php</string>
     <string name="LinkRequestUser">http://10.0.3.2/pol/req/requestUser.php</string>
+    <string name="LinkSendSms">http://10.0.3.2/pol/sms.php</string>
+    <string name="LinkAcceptOne">http://10.0.3.2/pol/req/requestWaitForAccUser.php</string>
+    <string name="LinkWaiteForPrice">http://10.0.3.2/pol/req/requestWaitForPrice.php</string>
+    <string name="LinkPayMoney">http://10.0.3.2/pol/req/requestPayMoney.php</string>
 
     <!--login Activity-->
     <string name="edtPhoneNumber">شماره تلفن</string>

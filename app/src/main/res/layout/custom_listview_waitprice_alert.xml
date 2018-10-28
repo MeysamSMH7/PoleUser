@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtCustomlstWaitPriceAlert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <Button
+            android:id="@+id/btnCustomlstWaitPriceAlert_Cash"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:text="نقدی" />
+
+        <Button
+            android:id="@+id/btnCustomlstWaitPriceAlert_Online"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:text="آنلاین" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCustomlstWaitPriceAlert_Cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="بستن" />
+
+
+</LinearLayout>

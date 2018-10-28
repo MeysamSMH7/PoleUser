@@ -9,21 +9,23 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-public class connect_GetPass extends AsyncTask {
+public class connect_PayMoney extends AsyncTask {
 
     public String link = "";
-    public String PhoneNum = "";
-    private connect_GetPass.IgetPassRes _IGetPassUserResult;
+    public int IDPost = 0;
+    public int MetodPaimant = 0;
+    private connect_PayMoney.IPayMoney _IPayMoneyResult;
     StringBuilder stringBuilder;
 
-    public connect_GetPass(String link, connect_GetPass.IgetPassRes result, String PhoneNum) {
+    public connect_PayMoney(String link, connect_PayMoney.IPayMoney result, int IDPost, int MetodPaimant) {
         this.link = link;
-        this.PhoneNum = PhoneNum;
-        _IGetPassUserResult = result;
+        this.IDPost = IDPost;
+        this.MetodPaimant = MetodPaimant;
+        _IPayMoneyResult = result;
     }
 
-    public interface IgetPassRes {
-        public void getPassUserResult(String res);
+    public interface IPayMoney {
+        public void getPayMoneyResult(String res);
     }
 
 
@@ -32,7 +34,8 @@ public class connect_GetPass extends AsyncTask {
 
         try {
 
-            String sendData = URLEncoder.encode("PhoneNum", "UTF8") + "=" + URLEncoder.encode(PhoneNum, "UTF8");
+            String sendData = URLEncoder.encode("IDPost", "UTF8") + "=" + URLEncoder.encode(String.valueOf(IDPost), "UTF8");
+            sendData += "&" + URLEncoder.encode("MetodPaimant", "UTF8") + "=" + URLEncoder.encode(String.valueOf(MetodPaimant), "UTF8");
 
             URL url = new URL(link);
             URLConnection connection = url.openConnection();
@@ -63,8 +66,8 @@ public class connect_GetPass extends AsyncTask {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
 
-        if (_IGetPassUserResult != null) {
-            _IGetPassUserResult.getPassUserResult(stringBuilder.toString());
+        if (_IPayMoneyResult != null) {
+            _IPayMoneyResult.getPayMoneyResult(stringBuilder.toString());
         }
 
     }

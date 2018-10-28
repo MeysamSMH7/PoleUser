@@ -9,21 +9,23 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-public class connect_GetPass extends AsyncTask {
+public class connect_AcceptOne extends AsyncTask {
 
     public String link = "";
-    public String PhoneNum = "";
-    private connect_GetPass.IgetPassRes _IGetPassUserResult;
+    public int UserID = 0;
+    public int IDPost = 0;
+    private connect_AcceptOne.IAcceptOne _IAcceptOneResult;
     StringBuilder stringBuilder;
 
-    public connect_GetPass(String link, connect_GetPass.IgetPassRes result, String PhoneNum) {
+    public connect_AcceptOne(String link, connect_AcceptOne.IAcceptOne result, int UserID, int IDPost) {
         this.link = link;
-        this.PhoneNum = PhoneNum;
-        _IGetPassUserResult = result;
+        this.UserID = UserID;
+        this.IDPost = IDPost;
+        _IAcceptOneResult = result;
     }
 
-    public interface IgetPassRes {
-        public void getPassUserResult(String res);
+    public interface IAcceptOne {
+        public void getAcceptOneResult(String res);
     }
 
 
@@ -32,7 +34,8 @@ public class connect_GetPass extends AsyncTask {
 
         try {
 
-            String sendData = URLEncoder.encode("PhoneNum", "UTF8") + "=" + URLEncoder.encode(PhoneNum, "UTF8");
+            String sendData = URLEncoder.encode("UserID", "UTF8") + "=" + URLEncoder.encode(String.valueOf(UserID), "UTF8");
+            sendData += "&" + URLEncoder.encode("IDPost", "UTF8") + "=" + URLEncoder.encode(String.valueOf(IDPost), "UTF8");
 
             URL url = new URL(link);
             URLConnection connection = url.openConnection();
@@ -63,8 +66,8 @@ public class connect_GetPass extends AsyncTask {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
 
-        if (_IGetPassUserResult != null) {
-            _IGetPassUserResult.getPassUserResult(stringBuilder.toString());
+        if (_IAcceptOneResult != null) {
+            _IAcceptOneResult.getAcceptOneResult(stringBuilder.toString());
         }
 
     }

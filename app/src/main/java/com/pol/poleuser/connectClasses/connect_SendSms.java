@@ -9,21 +9,23 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-public class connect_GetPass extends AsyncTask {
+public class connect_SendSms extends AsyncTask {
 
     public String link = "";
     public String PhoneNum = "";
-    private connect_GetPass.IgetPassRes _IGetPassUserResult;
+    public String Code = "";
+    private connect_SendSms.ISendSmsRes _ISendSmsResult;
     StringBuilder stringBuilder;
 
-    public connect_GetPass(String link, connect_GetPass.IgetPassRes result, String PhoneNum) {
+    public connect_SendSms(String link, connect_SendSms.ISendSmsRes result, String PhoneNum, String Code) {
         this.link = link;
         this.PhoneNum = PhoneNum;
-        _IGetPassUserResult = result;
+        this.Code = Code;
+        _ISendSmsResult = result;
     }
 
-    public interface IgetPassRes {
-        public void getPassUserResult(String res);
+    public interface ISendSmsRes {
+        public void loginUserResult(String res);
     }
 
 
@@ -33,6 +35,7 @@ public class connect_GetPass extends AsyncTask {
         try {
 
             String sendData = URLEncoder.encode("PhoneNum", "UTF8") + "=" + URLEncoder.encode(PhoneNum, "UTF8");
+            sendData += "&" + URLEncoder.encode("Code", "UTF8") + "=" + URLEncoder.encode(Code, "UTF8");
 
             URL url = new URL(link);
             URLConnection connection = url.openConnection();
@@ -52,9 +55,13 @@ public class connect_GetPass extends AsyncTask {
                 stringBuilder.append(data);
             }
 
+
+//            Activity_Login_PolUser.getData_SendSms = stringBuilder.toString();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
         return null;
     }
@@ -63,8 +70,12 @@ public class connect_GetPass extends AsyncTask {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
 
-        if (_IGetPassUserResult != null) {
-            _IGetPassUserResult.getPassUserResult(stringBuilder.toString());
+        try {
+            if (_ISendSmsResult != null) {
+                _ISendSmsResult.loginUserResult(stringBuilder.toString());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
     }

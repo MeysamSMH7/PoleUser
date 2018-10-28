@@ -1,143 +1,70 @@
 package com.pol.poleuser;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
+
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.Toast;
+import android.support.design.widget.BottomNavigationView;
+import android.view.MenuItem;
+import android.view.ViewGroup;
 
 
-import com.pol.poleuser.Adapters.MainPolUserGrid;
-import com.pol.poleuser.connectClasses.connect_GetSubSubjects;
-import com.pol.poleuser.varClass.varClass;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import com.pol.poleuser.Fragments.Tab_WaitMoney_PolUser;
+import com.pol.poleuser.Fragments.Tab_accOne_PolUser;
+import com.pol.poleuser.Fragments.Tab_main_PolUser;
 
 public class Activity_main_PolUser extends AppCompatActivity {
 
-
-    //public Variable
-    SharedPreferences preferencesMain;
-    String StatePre = "";
-    public String getSubSubjectsServer = "";
-
+    Tab_main_PolUser fragment1;
+    Tab_accOne_PolUser fragment2;
+    Tab_WaitMoney_PolUser fragment3;
+    ViewGroup frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_poluser);
-        preferencesMain = getSharedPreferences("polUser", 0);
-        StatePre = preferencesMain.getString("StateName_User", "aaa");
+
+        frameLayout = (ViewGroup) findViewById(R.id.frameMainPolUser);
+        fragment1 = new Tab_main_PolUser();
+        fragment2 = new Tab_accOne_PolUser();
+        fragment3 = new Tab_WaitMoney_PolUser();
+
+        BottomNavigationView navMainPolUser = findViewById(R.id.navMainPolUser);
 
 
-        //Grid View Object *******************************************************************
-        GridView gridViewMain = (GridView) findViewById(R.id.gridViewMain);
-        MainPolUserGrid mainPolUserGrid = new MainPolUserGrid(this, varClass.STMainPage1);
-        gridViewMain.setAdapter(mainPolUserGrid);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.frameMainPolUser, fragment1);
+        transaction.commit();
 
-        new connect_GetSubSubjects(getString(R.string.LinkGetSubSubject), resultGetSubSubject, StatePre.toString()).execute();
-
-
-        //GridView Click Items ***************************************************************
-        gridViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        navMainPolUser.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView parent, View view, int position, long id) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                if (GetJSONArraySubSubjects(varClass.STMainPage1[position]).equals("null")) {
-                    Toast.makeText(Activity_main_PolUser.this, "چیزی ارائه نشده", Toast.LENGTH_SHORT).show();
-                } else {
-                    Intent intent = new Intent(Activity_main_PolUser.this, Activity_SubCategory_PolUser.class);
-                    intent.putExtra("NameCategory", varClass.STMainPage1[position]);
-                    intent.putExtra("SubSubject", GetJSONArraySubSubjects(varClass.STMainPage1[position]));
-                    startActivity(intent);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                switch (menuItem.getItemId()) {
+                    case R.id.MainPageFrame:
+                        transaction.replace(R.id.frameMainPolUser, fragment1);
+                        transaction.commit();
+                        break;
+
+                    case R.id.AccOneFrame:
+                        transaction.replace(R.id.frameMainPolUser, fragment2);
+                        transaction.commit();
+                        break;
+
+                    case R.id.WaitForMoneyFrame:
+                        transaction.replace(R.id.frameMainPolUser, fragment3);
+                        transaction.commit();
+                        break;
                 }
+                return true;
             }
         });
-
-
-    }
-
-
-    connect_GetSubSubjects.IgetSubRes resultGetSubSubject = new connect_GetSubSubjects.IgetSubRes() {
-        @Override
-        public void getSubSujectsResult(String res) {
-            getSubSubjectsServer = res;
-        }
-    };
-
-//GetJson *****************************************************************************
-
-    public String GetJSONArraySubSubjects(String cat) {
-        String PicVideo = "", KhadamateMajales = "", HamlNaghl = "", KhadamateBagh = "", DamPezeshki = "", KHAdamatNezafati = "", MashinAlat = "", TamirLavazemKhanehi = "", DekoRasion = "", KhadaMatFaniBuild = "", TamirBuild = "", KhadaMatCar = "", KhadaMatCompuTer = "", KharidTicket = "";
-        try {
-
-            JSONArray jsonArray = new JSONArray(getSubSubjectsServer);
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                JSONObject object = jsonArray.getJSONObject(i);
-
-
-                PicVideo = object.getString("PicVideo");
-                KhadamateMajales = object.getString("KhadamateMajales");
-                HamlNaghl = object.getString("HamlNaghl");
-                KhadamateBagh = object.getString("KhadamateBagh");
-                DamPezeshki = object.getString("DamPezeshki");
-                KHAdamatNezafati = object.getString("KHAdamatNezafati");
-                MashinAlat = object.getString("MashinAlat");
-                TamirLavazemKhanehi = object.getString("TamirLavazemKhanehi");
-                DekoRasion = object.getString("DekoRasion");
-                KhadaMatFaniBuild = object.getString("KhadaMatFaniBuild");
-                TamirBuild = object.getString("TamirBuild");
-                KhadaMatCar = object.getString("KhadaMatCar");
-                KhadaMatCompuTer = object.getString("KhadaMatCompuTer");
-                KharidTicket = object.getString("KharidTicket");
-
-
-            }
-
-        } catch (Exception e) {
-            Log.d("err", e.getMessage());
-        }
-
-        switch (cat) {
-            case "عکاس و فیلمبردار":
-                return PicVideo;
-            case "مجالس":
-                return KhadamateMajales;
-            case "حمل و نقل":
-                return HamlNaghl;
-            case "باغبانی":
-                return KhadamateBagh;
-            case "دامپزشکی":
-                return DamPezeshki;
-            case "نظافت":
-                return KHAdamatNezafati;
-            case "ماشین آلات راهداری":
-                return MashinAlat;
-            case "تعمیرات لوازم خانگی":
-                return TamirLavazemKhanehi;
-            case "دکوراسیون":
-                return DekoRasion;
-            case "فنی ساختمان":
-                return KhadaMatFaniBuild;
-            case "تعمیرات کلی ساختمان":
-                return TamirBuild;
-            case "خودرو":
-                return KhadaMatCar;
-            case "کامپیوتری":
-                return KhadaMatCompuTer;
-            case "خرید بلیط":
-                return KharidTicket;
-            default:
-                return "null";
-        }
     }
 }
 
