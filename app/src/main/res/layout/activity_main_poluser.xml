@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="5dp"
     tools:context=".Activity_main_PolUser">
 
-
-    <GridView
-        android:id="@+id/gridViewMain"
+    <FrameLayout
+        android:id="@+id/frameMainPolUser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:columnWidth="150dp"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="20dp"
-        android:horizontalSpacing="10dp"
-        android:stretchMode="spacingWidthUniform"
-        />
+        android:layout_above="@+id/navMainPolUser"
+        android:layout_weight="0.1" />
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navMainPolUser"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        app:itemBackground="@android:color/holo_red_light"
+        app:itemTextColor="@android:color/white"
+        app:menu="@menu/menu_bottom_nav" />
 
 
 </LinearLayout>
