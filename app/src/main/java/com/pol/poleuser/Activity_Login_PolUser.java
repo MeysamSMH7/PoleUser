@@ -26,6 +26,9 @@ import org.json.JSONObject;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import static com.pol.poleuser.classes.SpinnerClass.CityNameID;
+import static com.pol.poleuser.classes.SpinnerClass.StateNameID;
+
 public class Activity_Login_PolUser extends AppCompatActivity {
     public String getDataServerLogin = "";
 
@@ -96,7 +99,6 @@ public class Activity_Login_PolUser extends AppCompatActivity {
 
         //LinearRegForgetPass
         edtPhoneNumberForget = (EditText) findViewById(R.id.edtPhoneNumberForget);
-        txtYourPass = (TextView) findViewById(R.id.txtYourPass);
 
 
         LinearLogin.setVisibility(View.VISIBLE);
@@ -111,7 +113,6 @@ public class Activity_Login_PolUser extends AppCompatActivity {
     //Login **************************************************************************
 
     public void btnLoginOnClick(View view) {
-
         PhoneNum = edtPhoneNumLogin.getText().toString();
         PassWord = edtPassLogin.getText().toString();
 
@@ -172,10 +173,8 @@ public class Activity_Login_PolUser extends AppCompatActivity {
             Toast.makeText(Activity_Login_PolUser.this, "لطفا شماره تلفن خود را وارد کنید!", Toast.LENGTH_SHORT).show();
         } else {
             ranNum = RandomNum();
-            String Phone = edtPhoneNumRegister.getText().toString().trim().replaceAll(" ", "");
 
-          new connect_SendSms(getString(R.string.LinkSendSms), iSendSmsRes, Phone + "", ranNum + "").execute();
-
+            new connect_SendSms(getString(R.string.LinkSendSms), iSendSmsRes, PhoneNum + "", ranNum + "").execute();
 
             LinearLogin.setVisibility(View.GONE);
             LinearRegPhoneNum.setVisibility(View.GONE);
@@ -189,7 +188,6 @@ public class Activity_Login_PolUser extends AppCompatActivity {
                     String timer = String.format(Locale.getDefault(), " %02d " + getString(R.string.min) + " , %02d " + getString(R.string.sec),
                             TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60,
                             TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60);
-
 
                     txtTimer.setText(timer);
                 }
@@ -390,11 +388,13 @@ public class Activity_Login_PolUser extends AppCompatActivity {
                 editor.putInt("PhoneNum_User", object.getInt("PhoneNum"));
                 editor.putString("StateName_User", object.getString("StateName"));
                 editor.putString("CityName_User", object.getString("CityName"));
+                editor.putInt("StateNameID_User", StateNameID);
+                editor.putInt("CityNameID_User", CityNameID);
                 editor.putInt("CodPosty_User", object.getInt("CodPosty"));
                 editor.putString("Address_User", object.getString("Address"));
                 editor.putString("Password_User", object.getString("Password"));
                 editor.putBoolean("statusLogin?", true);
-                editor.commit();
+                editor.apply();
             }
 
         } catch (Exception e) {

@@ -10,12 +10,12 @@
     <item
         android:id="@+id/AccOneFrame"
         android:icon="@mipmap/ic_launcher"
-        android:title="کارهای در انتظار تایید"
+        android:title="در انتظار تایید"
         />
 
     <item
         android:id="@+id/WaitForMoneyFrame"
         android:icon="@mipmap/ic_launcher"
-        android:title="کارهای در انتظار پرداخت"
+        android:title="در انتظار پرداخت"
         />
 </menu>

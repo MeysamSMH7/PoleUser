@@ -10,7 +10,8 @@ public class SpinnerClass {
     private ArrayAdapter arrayAdapterState , arrayAdapterCity;
     public static String StateName , CityName;
     private Spinner spnState , spnCity;
-
+public static int StateNameID = 0;
+public static int CityNameID = 0;
     Context context;
 
     String[] NameStatePolArr = {"آذربایجان شرقی", "آذربایجان غربی", "اردبیل", "اصفهان", "البرز", "ایلام", "بوشهر", "تهران", "چهارمحال و بختیاری", "خراسان جنوبی", "خراسان رضوی", "خراسان شمالی", "خوستان", "زنجان", "سمنان", "سیستان و بلوچستان", "فارس", "قزوین", "قم", "کردستان", "کرمان", "کرمانشاه", "کهگلویه و بویراحمد", "گستان", "گیلان", "لرستان", "مازندران", "مرکزی", "هرمزگان", "همدان", "یزد"};
@@ -62,6 +63,7 @@ public class SpinnerClass {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 StateName = parent.getItemAtPosition(position).toString();
+                StateNameID = spnState.getId();
                 SwitchSpinnerCity();
                 arrayAdapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spnCity.setAdapter(arrayAdapterCity);
@@ -78,6 +80,7 @@ public class SpinnerClass {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 CityName = parent.getItemAtPosition(position).toString();
+                CityNameID = spnCity.getId();
             }
 
             @Override

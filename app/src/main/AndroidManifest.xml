@@ -24,7 +24,8 @@
         <activity android:name=".Activity_Login_PolUser" />
         <activity android:name=".Activity_Wellcome_PolUser" />
         <activity android:name=".Activity_SubCategory_PolUser" />
-        <activity android:name=".Activity_SubmitReq_PolUser"></activity>
+        <activity android:name=".Activity_SubmitReq_PolUser" />
+        <activity android:name=".Activity_EditProfile_PoleUser"></activity>
     </application>
 
 </manifest>

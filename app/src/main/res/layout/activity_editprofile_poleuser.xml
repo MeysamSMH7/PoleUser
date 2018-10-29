@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity_EditProfile_PoleUser">
+
+
+    <!--register ==> Finish Register-->
+    <LinearLayout
+        android:id="@+id/LinearRegFinish"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/edtFirstNameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/edtFirstName" />
+
+        <EditText
+            android:id="@+id/edtLastNameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/edtLastName" />
+
+        <EditText
+            android:id="@+id/edtPhoneNumberEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:enabled="false"
+            android:hint="@string/edtPhoneNumber" />
+
+        <EditText
+            android:id="@+id/edtPasswordEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/edtPassword" />
+
+        <EditText
+            android:id="@+id/edtRePasswordEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/edtRePassword" />
+
+        <EditText
+            android:id="@+id/edtPostalCodeEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:inputType="number"
+            android:hint="@string/edtPostalCode" />
+
+        <Spinner
+            android:id="@+id/spnStateEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/spnCityEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/edtAddressEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/edtAddress" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="10">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:onClick="btnBackOnClickFinishEdit"
+                android:text="@string/btnFinish" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:onClick="btnFinishRegisterEdit"
+                android:text="@string/btnFinishRegister" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

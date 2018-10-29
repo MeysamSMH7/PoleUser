@@ -13,7 +13,7 @@
     <string name="LinkPayMoney">http://amlakeyekta.ir/pol/req/requestPayMoney.php</string>
 
     <!--login Activity-->
-    <string name="edtPhoneNumber">شماره تلفن</string>
+    <string name="edtPhoneNumber">شماره تلفن (بدون صفر)</string>
     <string name="edtPassword">رمز عبور</string>
     <string name="btnLogin">ورود</string>
     <string name="btnRegister">ثبت نام</string>
