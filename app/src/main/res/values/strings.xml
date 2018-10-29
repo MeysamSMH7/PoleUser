@@ -1,18 +1,16 @@
 <resources>
     <string name="app_name">Pole User</string>
 
-    <!--Aliz IP     10.0.3.2-->
-    <!--Sam IP      192.168.43.80:7778-->
-
     <!--Links-->
-    <string name="LinkAddUser">http://192.168.43.80:7778/pol/addUser.php</string>
-    <string name="LinkLoginUser">http://192.168.43.80:7778/pol/selectUser.php</string>
-    <string name="LinkGetPass">http://192.168.43.80:7778/pol/getPassWord.php</string>
-    <string name="LinkGetSubSubject">http://192.168.43.80:7778/pol/getSubSubject.php</string>
-    <string name="LinkRequestUser">http://192.168.43.80:7778/pol/req/requestUser.php</string>
-    <string name="LinkAcceptOne">http://192.168.43.80:7778/pol/req/requestWaitForAccUser.php</string>
-    <string name="LinkWaiteForPrice">http://192.168.43.80:7778/pol/req/requestWaitForPrice.php</string>
-    <string name="LinkPayMoney">http://192.168.43.80:7778/pol/req/requestPayMoney.php</string>
+    <string name="LinkAddUser">http://10.0.3.2/pol/addUser.php</string>
+    <string name="LinkLoginUser">http://10.0.3.2/pol/selectUser.php</string>
+    <string name="LinkGetPass">http://10.0.3.2/pol/getPassWord.php</string>
+    <string name="LinkGetSubSubject">http://10.0.3.2/pol/getSubSubject.php</string>
+    <string name="LinkRequestUser">http://10.0.3.2/pol/req/requestUser.php</string>
+    <string name="LinkSendSms">http://10.0.3.2/pol/sms.php</string>
+    <string name="LinkAcceptOne">http://10.0.3.2/pol/req/requestWaitForAccUser.php</string>
+    <string name="LinkWaiteForPrice">http://10.0.3.2/pol/req/requestWaitForPrice.php</string>
+    <string name="LinkPayMoney">http://10.0.3.2/pol/req/requestPayMoney.php</string>
 
     <!--login Activity-->
     <string name="edtPhoneNumber">شماره تلفن</string>

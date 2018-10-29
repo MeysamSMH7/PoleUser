@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.pol.poleuser.classes.SpinnerClass;
 import com.pol.poleuser.connectClasses.connect_GetPass;
 import com.pol.poleuser.connectClasses.connect_LoginUser;
+import com.pol.poleuser.connectClasses.connect_SendSms;
 import com.pol.poleuser.connectClasses.connect_addUser;
 
 import org.json.JSONArray;
@@ -171,6 +172,9 @@ public class Activity_Login_PolUser extends AppCompatActivity {
         } else {
 
             ranNum = RandomNum();
+            String Phone = edtPhoneNumRegister.getText().toString().trim().replaceAll(" ", "");
+
+            new connect_SendSms(getString(R.string.LinkSendSms), iSendSmsRes , Phone+"" , ranNum+"").execute();
 
             LinearLogin.setVisibility(View.GONE);
             LinearRegPhoneNum.setVisibility(View.GONE);
@@ -199,11 +203,23 @@ public class Activity_Login_PolUser extends AppCompatActivity {
                     edtPhoneNumRegister.getText().toString().trim().replaceAll(" ", "")
             );
 
-            txtShowCode.setText(ranNum);
+            //txtShowCode.setText(ranNum);
 
 
         }
     }
+
+    connect_SendSms.ISendSmsRes iSendSmsRes = new connect_SendSms.ISendSmsRes() {
+        @Override
+        public void loginUserResult(String res) {
+            Toast.makeText(Activity_Login_PolUser.this, res+"", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
+
+
+
 
     public void txtForgetPass(View view) {
         LinearLogin.setVisibility(View.GONE);
