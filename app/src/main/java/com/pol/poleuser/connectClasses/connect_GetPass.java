@@ -62,10 +62,12 @@ public class connect_GetPass extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-
-        if (_IGetPassUserResult != null) {
-            _IGetPassUserResult.getPassUserResult(stringBuilder.toString());
+        try {
+            if (_IGetPassUserResult != null) {
+                _IGetPassUserResult.getPassUserResult(stringBuilder.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 }
