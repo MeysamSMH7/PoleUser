@@ -174,8 +174,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
             ranNum = RandomNum();
             String Phone = edtPhoneNumRegister.getText().toString().trim().replaceAll(" ", "");
 
-//            new connect_SendSms(getString(R.string.LinkSendSms), iSendSmsRes, Phone + "", ranNum + "").execute();
-            Toast.makeText(this, ranNum + "", Toast.LENGTH_SHORT).show();
+          new connect_SendSms(getString(R.string.LinkSendSms), iSendSmsRes, Phone + "", ranNum + "").execute();
 
 
             LinearLogin.setVisibility(View.GONE);
