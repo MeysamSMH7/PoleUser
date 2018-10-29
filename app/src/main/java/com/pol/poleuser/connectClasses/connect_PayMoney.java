@@ -65,10 +65,12 @@ public class connect_PayMoney extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-
-        if (_IPayMoneyResult != null) {
-            _IPayMoneyResult.getPayMoneyResult(stringBuilder.toString());
+        try {
+            if (_IPayMoneyResult != null) {
+                _IPayMoneyResult.getPayMoneyResult(stringBuilder.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 }

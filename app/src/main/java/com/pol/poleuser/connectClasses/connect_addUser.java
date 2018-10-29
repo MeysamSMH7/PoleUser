@@ -11,7 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-public class connect_addUser extends AsyncTask{
+public class connect_addUser extends AsyncTask {
     public String link = "";
     public String FirstName = "";
     public String LastName = "";
@@ -24,8 +24,8 @@ public class connect_addUser extends AsyncTask{
     private IshowAddUserRes _IAddUserResult;
     StringBuilder stringBuilder;
 
-    public connect_addUser(String link , IshowAddUserRes result , String FirstName , String LastName , String PhoneNum , String PassWord , String CodPosty ,
-                           String StateName , String CityName , String Address){
+    public connect_addUser(String link, IshowAddUserRes result, String FirstName, String LastName, String PhoneNum, String PassWord, String CodPosty,
+                           String StateName, String CityName, String Address) {
         this.link = link;
         this.FirstName = FirstName;
         this.LastName = LastName;
@@ -38,7 +38,7 @@ public class connect_addUser extends AsyncTask{
         _IAddUserResult = result;
     }
 
-    public interface IshowAddUserRes{
+    public interface IshowAddUserRes {
         public void addUserResult(String res);
     }
 
@@ -48,14 +48,14 @@ public class connect_addUser extends AsyncTask{
 
         try {
 
-            String sendData = URLEncoder.encode("FirstName" , "UTF8") + "=" + URLEncoder.encode(FirstName , "UTF8");
-            sendData += "&" + URLEncoder.encode("LastName" , "UTF8") + "=" + URLEncoder.encode(LastName , "UTF8");
-            sendData += "&" + URLEncoder.encode("PhoneNum" , "UTF8") + "=" + URLEncoder.encode(PhoneNum , "UTF8");
-            sendData += "&" + URLEncoder.encode("StateName" , "UTF8") + "=" + URLEncoder.encode(StateName , "UTF8");
-            sendData += "&" + URLEncoder.encode("CityName" , "UTF8") + "=" + URLEncoder.encode(CityName , "UTF8");
-            sendData += "&" + URLEncoder.encode("CodPosty" , "UTF8") + "=" + URLEncoder.encode(CodPosty , "UTF8");
-            sendData += "&" + URLEncoder.encode("Address" , "UTF8") + "=" + URLEncoder.encode(Address , "UTF8");
-            sendData += "&" + URLEncoder.encode("Password" , "UTF8") + "=" + URLEncoder.encode(PassWord , "UTF8");
+            String sendData = URLEncoder.encode("FirstName", "UTF8") + "=" + URLEncoder.encode(FirstName, "UTF8");
+            sendData += "&" + URLEncoder.encode("LastName", "UTF8") + "=" + URLEncoder.encode(LastName, "UTF8");
+            sendData += "&" + URLEncoder.encode("PhoneNum", "UTF8") + "=" + URLEncoder.encode(PhoneNum, "UTF8");
+            sendData += "&" + URLEncoder.encode("StateName", "UTF8") + "=" + URLEncoder.encode(StateName, "UTF8");
+            sendData += "&" + URLEncoder.encode("CityName", "UTF8") + "=" + URLEncoder.encode(CityName, "UTF8");
+            sendData += "&" + URLEncoder.encode("CodPosty", "UTF8") + "=" + URLEncoder.encode(CodPosty, "UTF8");
+            sendData += "&" + URLEncoder.encode("Address", "UTF8") + "=" + URLEncoder.encode(Address, "UTF8");
+            sendData += "&" + URLEncoder.encode("Password", "UTF8") + "=" + URLEncoder.encode(PassWord, "UTF8");
 
             URL url = new URL(link);
             URLConnection connection = url.openConnection();
@@ -71,15 +71,14 @@ public class connect_addUser extends AsyncTask{
 
             String data = null;
 
-            while ((data=reader.readLine()) != null){
+            while ((data = reader.readLine()) != null) {
                 stringBuilder.append(data);
             }
 
 
-
 //            Activity_Login_PolUser.getData_AddUser = stringBuilder.toString();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -89,10 +88,12 @@ public class connect_addUser extends AsyncTask{
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-
-        if (_IAddUserResult != null) {
-            _IAddUserResult.addUserResult(stringBuilder.toString());
+        try {
+            if (_IAddUserResult != null) {
+                _IAddUserResult.addUserResult(stringBuilder.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 }

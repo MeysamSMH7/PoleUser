@@ -65,10 +65,13 @@ public class connect_AcceptOne extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
+        try {
+            if (_IAcceptOneResult != null) {
+                _IAcceptOneResult.getAcceptOneResult(stringBuilder.toString());
+            }
 
-        if (_IAcceptOneResult != null) {
-            _IAcceptOneResult.getAcceptOneResult(stringBuilder.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 }
