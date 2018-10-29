@@ -33,7 +33,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
     private boolean IsCurrentday = false, IsDateClicked = false;
     private String SubjectServer = "", DateDayServer = "", DateMonthServer = "", NameWeekServer = "", DateYearServer = "", PeriodTimeServer = "", AddressServer = "", UserIDServer = "", txtServer = "", StateNameServer = "";
     private SharedPreferences preferencesLogin;
-
+boolean TimeIsTrue = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +123,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
                         } else {
                             Toast.makeText(Activity_SubmitReq_PolUser.this, "میتونی", Toast.LENGTH_SHORT).show();
                             PeriodTimeServer = getString(R.string.radiobtnPeriodTime1SubReq);
+                            TimeIsTrue=true;
                         }
 
                         break;
@@ -141,6 +142,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
                         } else {
                             Toast.makeText(Activity_SubmitReq_PolUser.this, "میتونی", Toast.LENGTH_SHORT).show();
                             PeriodTimeServer = getString(R.string.radiobtnPeriodTime2SubReq);
+                            TimeIsTrue=true;
                         }
 
                         break;
@@ -159,6 +161,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
                         } else {
                             Toast.makeText(Activity_SubmitReq_PolUser.this, "میتونی", Toast.LENGTH_SHORT).show();
                             PeriodTimeServer = getString(R.string.radiobtnPeriodTime3SubReq);
+                            TimeIsTrue=true;
                         }
                         break;
                 }
@@ -172,20 +175,17 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
     public void SubmitReq(View view) {
         txtServer = edtExplainSubmitReq.getText().toString();
 
-        new connect_SubmitReq(getString(R.string.LinkRequestUser), resultSubReq, SubjectServer, DateDayServer, DateMonthServer, NameWeekServer, DateYearServer, PeriodTimeServer, AddressServer, UserIDServer, txtServer, StateNameServer).execute();
-        Toast.makeText(this,
-                "" +
-                        SubjectServer + "\n" +
-                        DateDayServer + "\n" +
-                        DateMonthServer + "\n" +
-                        NameWeekServer + "\n" +
-                        DateYearServer + "\n" +
-                        PeriodTimeServer + "\n" +
-                        AddressServer + "\n" +
-                        UserIDServer + "\n" +
-                        txtServer + "\n" +
-                        StateNameServer + "\n" +
-                        "end", Toast.LENGTH_SHORT).show();
+
+
+        if (txtServer.equals("") || AddressServer.equals("")){
+            Toast.makeText(this, "لطفا تمام فیلد های مورد نظر را پر کنید", Toast.LENGTH_SHORT).show();
+        }else if(!TimeIsTrue){
+            Toast.makeText(this, "زمان رو درست کن", Toast.LENGTH_SHORT).show();
+        }else {
+            new connect_SubmitReq(getString(R.string.LinkRequestUser), resultSubReq, SubjectServer, DateDayServer, DateMonthServer, NameWeekServer, DateYearServer, PeriodTimeServer, AddressServer, UserIDServer, txtServer, StateNameServer).execute();
+        }
+
+
 
 
     }
