@@ -133,11 +133,11 @@ public class Activity_Login_PolUser extends AppCompatActivity {
         public void loginUserResult(String res) {
 
             getDataServerLogin = res;
-            if (!res.contains("[]")) {
+            if (PhoneNum.equals("") || PassWord.equals("")){
+                Toast.makeText(Activity_Login_PolUser.this, "لطفا فیلدها را پر کنید!", Toast.LENGTH_SHORT).show();
+            }else {
+                if (!res.contains("[]")) {
 
-                if (res.contains("NO!")) {
-                    Toast.makeText(Activity_Login_PolUser.this, "شماره تلفن یا پسورد شما اشتباه می باشد!", Toast.LENGTH_SHORT).show();
-                } else {
                     Toast.makeText(Activity_Login_PolUser.this, "خوش اومدی!", Toast.LENGTH_SHORT).show();
 
                     GetJSONArrayLogin();
@@ -146,9 +146,9 @@ public class Activity_Login_PolUser extends AppCompatActivity {
                     startActivity(intent);
                     finish();
 
+                } else {
+                    Toast.makeText(Activity_Login_PolUser.this, "شماره تلفن یا پسورد شما اشتباه می باشد!", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(Activity_Login_PolUser.this, "هیچی پر نکردید!", Toast.LENGTH_SHORT).show();
             }
         }
     };

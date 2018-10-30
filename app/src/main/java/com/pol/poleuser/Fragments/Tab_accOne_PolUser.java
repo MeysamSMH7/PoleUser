@@ -101,6 +101,7 @@ public class Tab_accOne_PolUser extends Fragment {
             if (IsAccepting) {
                 Toast.makeText(getContext(), res + "", Toast.LENGTH_SHORT).show();
                 IsAccepting = false;
+
             } else {
                 GetJSONAccOne(res);
                 adapter_accone = new ArrayAdapter(getContext(), R.layout.custom_listview_accone, listAccOne) {
@@ -109,7 +110,11 @@ public class Tab_accOne_PolUser extends Fragment {
                     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                         convertView = getLayoutInflater().inflate(R.layout.custom_listview_accone, parent, false);
                         TextView txtCustomlstAccOne = convertView.findViewById(R.id.txtCustomlstAccOne);
-                        txtCustomlstAccOne.setText(listAccOne.get(position));
+                        if (listAccOne.isEmpty()){
+                            txtCustomlstAccOne.setText("شما هیچ درخواست تایید شده ای ندارید!");
+                        }else {
+                            txtCustomlstAccOne.setText(listAccOne.get(position));
+                        }
 
                         return convertView;
                     }

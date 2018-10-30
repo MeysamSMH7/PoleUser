@@ -49,7 +49,7 @@ public class Tab_main_PolUser extends Fragment {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
 
-                if (GetJSONArraySubSubjects(varClass.STMainPage1[position]).equals("null")) {
+                if (GetJSONArraySubSubjects(varClass.STMainPage1[position]).equals("null") || GetJSONArraySubSubjects(varClass.STMainPage1[position]).equals("")) {
                     Toast.makeText(view.getContext(), "چیزی ارائه نشده", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(view.getContext(), Activity_SubCategory_PolUser.class);
