@@ -256,7 +256,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
             LinearRegForgetPass.setVisibility(View.GONE);
 
             //Spinner for Register
-            SpinnerClass spinner = new SpinnerClass(Activity_Login_PolUser.this, spnState, spnCity);
+            SpinnerClass spinner = new SpinnerClass(Activity_Login_PolUser.this, spnState, spnCity,false);
             spinner.spinner();
 
         } else if (countbtnClick < 5) {
