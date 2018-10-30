@@ -134,6 +134,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
 
             getDataServerLogin = res;
             if (!res.contains("[]")) {
+
                 if (res.contains("NO!")) {
                     Toast.makeText(Activity_Login_PolUser.this, "شماره تلفن یا پسورد شما اشتباه می باشد!", Toast.LENGTH_SHORT).show();
                 } else {
