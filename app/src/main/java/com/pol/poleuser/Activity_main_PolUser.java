@@ -40,7 +40,6 @@ public class Activity_main_PolUser extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigationview;
-
     SharedPreferences sharedPreferences;
 
     @Override

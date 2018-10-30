@@ -3,6 +3,7 @@ package com.pol.poleuser.Fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,24 +12,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.Toast;
+
 import com.pol.poleuser.Activity_SubCategory_PolUser;
+import com.pol.poleuser.Activity_SubmitReq_PolUser;
 import com.pol.poleuser.Adapters.MainPolUserGrid;
 import com.pol.poleuser.R;
 import com.pol.poleuser.connectClasses.connect_GetSubSubjects;
 import com.pol.poleuser.varClass.varClass;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Tab_main_PolUser extends Fragment {
 
     //public Variable
-    SharedPreferences preferencesMain;
-    String StatePre = "";
+    private SharedPreferences preferencesMain;
+    private String StatePre = "";
     public String getSubSubjectsServer = "";
-
+    private String AllSubSbjects = null;
+    private AutoCompleteTextView autoComTxtViewMain;
+    ArrayAdapter<String> adapterSearch;
+    List<String> lstSearch;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,7 +56,8 @@ public class Tab_main_PolUser extends Fragment {
         MainPolUserGrid mainPolUserGrid = new MainPolUserGrid(view.getContext(), varClass.STMainPage1);
         gridViewMain.setAdapter(mainPolUserGrid);
 
-        new connect_GetSubSubjects(getString(R.string.LinkGetSubSubject), resultGetSubSubject, StatePre.toString()).execute();
+        new connect_GetSubSubjects(getString(R.string.LinkGetSubSubject), resultGetSubSubject, StatePre).execute();
+
 
         //GridView Click Items ***************************************************************
         gridViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -60,6 +75,44 @@ public class Tab_main_PolUser extends Fragment {
             }
         });
 
+
+//        autoComTxtViewMain = view.findViewById(R.id.autoComTxtViewMain);
+
+        autoComTxtViewMain = view.findViewById(R.id.autoComTxtViewMain);
+        autoComTxtViewMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (AllSubSbjects == null) {
+                    AllSubSbjects = GetJSONArraySubSubjects("جستجو کردن");
+                    lstSearch = new ArrayList<>();
+
+                    String[] aaa = AllSubSbjects.split(",");
+                    for (int a = 0; a < aaa.length; a++) {
+                        if (!(aaa[a].equals("null"))) {
+                            lstSearch.add(aaa[a]);
+                        }
+                    }
+                    autoComTxtViewMain.setThreshold(1);//will start working from first character
+                    adapterSearch = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item, lstSearch);
+                    autoComTxtViewMain.setAdapter(adapterSearch);//setting the adapter data into the AutoCompleteTextView
+                }
+
+
+            }
+        });
+        autoComTxtViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(getContext(), Activity_SubmitReq_PolUser.class);
+                intent.putExtra("Subject", parent.getAdapter().getItem(position).toString());
+                startActivity(intent);
+                autoComTxtViewMain.setText("");
+            }
+        });
+
+
         return view;
     }
 
@@ -72,8 +125,8 @@ public class Tab_main_PolUser extends Fragment {
 
     //GetJson *****************************************************************************
 
-    public String GetJSONArraySubSubjects(String cat) {
-        String PicVideo = "", KhadamateMajales = "", HamlNaghl = "", KhadamateBagh = "", DamPezeshki = "", KHAdamatNezafati = "", MashinAlat = "", TamirLavazemKhanehi = "", DekoRasion = "", KhadaMatFaniBuild = "", TamirBuild = "", KhadaMatCar = "", KhadaMatCompuTer = "", KharidTicket = "";
+    private String GetJSONArraySubSubjects(String cat) {
+        String PicVideo = "", KhadamateMajales = "", HamlNaghl = "", KhadamateBagh = "", DamPezeshki = "", KHAdamatNezafati = "", MashinAlat = "", TamirLavazemKhanehi = "", DekoRasion = "", KhadaMatFaniBuild = "", TamirBuild = "", KhadaMatCar = "", KhadaMatCompuTer = "", KharidTicket = "", SearchString = "";
         try {
 
             JSONArray jsonArray = new JSONArray(getSubSubjectsServer);
@@ -81,7 +134,6 @@ public class Tab_main_PolUser extends Fragment {
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject object = jsonArray.getJSONObject(i);
-
 
                 PicVideo = object.getString("PicVideo");
                 KhadamateMajales = object.getString("KhadamateMajales");
@@ -97,6 +149,9 @@ public class Tab_main_PolUser extends Fragment {
                 KhadaMatCar = object.getString("KhadaMatCar");
                 KhadaMatCompuTer = object.getString("KhadaMatCompuTer");
                 KharidTicket = object.getString("KharidTicket");
+
+                SearchString = PicVideo + "," + KhadamateMajales + "," + HamlNaghl + "," + KhadamateBagh + "," + DamPezeshki + "," + KHAdamatNezafati + "," + MashinAlat + "," + TamirLavazemKhanehi + "," + DekoRasion + "," + KhadaMatFaniBuild + "," + TamirBuild + "," + KhadaMatCar + "," + KhadaMatCompuTer + "," + KharidTicket + "";
+
 
             }
 
@@ -133,8 +188,12 @@ public class Tab_main_PolUser extends Fragment {
                 return KhadaMatCompuTer;
             case "خرید بلیط":
                 return KharidTicket;
+            case "جستجو کردن":
+                return SearchString;
             default:
                 return "null";
         }
     }
+
+
 }
