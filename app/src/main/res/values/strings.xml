@@ -62,4 +62,8 @@
     <string name="btnSubmitReqSubReq">ارسال درخواست</string>
 
 
+    <!--Acc_One & Wait for money-->
+    <string name="txtShowNoAcc_One">شما هیچ کار تایید شده ای ندارید!</string>
+    <string name="txtShowNoWaitMoney">شما هیچ صورت حسابی برای پرداخت ندارید!</string>
+
 </resources>

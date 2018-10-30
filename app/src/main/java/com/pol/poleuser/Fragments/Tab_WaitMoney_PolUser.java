@@ -39,6 +39,7 @@ public class Tab_WaitMoney_PolUser extends Fragment {
     List<String> listWaitPrice, listWaitPriceAlert;
     List<Integer> listIDPostWaitPrice;
     ArrayAdapter arrayWaitPrice;
+    TextView txtShowNoWaitMoney;
 
     @Nullable
     @Override
@@ -51,6 +52,8 @@ public class Tab_WaitMoney_PolUser extends Fragment {
         listWaitPrice = new ArrayList<>();
         listWaitPriceAlert = new ArrayList<>();
         listIDPostWaitPrice = new ArrayList<>();
+
+        txtShowNoWaitMoney = view.findViewById(R.id.txtShowNoWaitMoney);
 
         lts_WaitMoney = view.findViewById(R.id.lts_WaitMoney);
 
@@ -108,19 +111,23 @@ public class Tab_WaitMoney_PolUser extends Fragment {
     connect_AcceptOne.IAcceptOne iWaitePrice = new connect_AcceptOne.IAcceptOne() {
         @Override
         public void getAcceptOneResult(String res) {
-            GetJsonWaitPrice(res);
-            arrayWaitPrice = new ArrayAdapter(getContext(), R.layout.custom_listview_accone, listWaitPrice) {
-                @NonNull
-                @Override
-                public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                    convertView = getLayoutInflater().inflate(R.layout.custom_listview_accone, parent, false);
-                    TextView txtCustomlstAccOne = convertView.findViewById(R.id.txtCustomlstAccOne);
-                    txtCustomlstAccOne.setText(listWaitPrice.get(position));
-                    return convertView;
-                }
-            };
-            lts_WaitMoney.setAdapter(arrayWaitPrice);
-
+            if (res.contains("[]")){
+                lts_WaitMoney.setVisibility(View.GONE);
+                txtShowNoWaitMoney.setVisibility(View.VISIBLE);
+            }else {
+                GetJsonWaitPrice(res);
+                arrayWaitPrice = new ArrayAdapter(getContext(), R.layout.custom_listview_accone, listWaitPrice) {
+                    @NonNull
+                    @Override
+                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                        convertView = getLayoutInflater().inflate(R.layout.custom_listview_accone, parent, false);
+                        TextView txtCustomlstAccOne = convertView.findViewById(R.id.txtCustomlstAccOne);
+                        txtCustomlstAccOne.setText(listWaitPrice.get(position));
+                        return convertView;
+                    }
+                };
+                lts_WaitMoney.setAdapter(arrayWaitPrice);
+            }
         }
     };
 

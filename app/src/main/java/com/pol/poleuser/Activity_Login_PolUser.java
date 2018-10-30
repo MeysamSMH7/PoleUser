@@ -116,7 +116,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
         PhoneNum = edtPhoneNumLogin.getText().toString();
         PassWord = edtPassLogin.getText().toString();
 
-        new connect_LoginUser(getString(R.string.LinkLoginUser), resultLogin, PhoneNum, PassWord).execute();
+        new connect_LoginUser(getString(R.string.LinkLoginUser), resultLogin, PhoneNum, PassWord , "false").execute();
 
     }
 
@@ -170,42 +170,54 @@ public class Activity_Login_PolUser extends AppCompatActivity {
         PhoneNum = edtPhoneNumRegister.getText().toString();
         edtPhoneNumRegister.setText("");
 
+
         if (PhoneNum.isEmpty() || !(PhoneNum.trim().length() == 10)) {
             Toast.makeText(Activity_Login_PolUser.this, "لطفا شماره تلفن خود را وارد کنید!", Toast.LENGTH_SHORT).show();
         } else {
-            ranNum = RandomNum();
 
-            new connect_SendSms(getString(R.string.LinkSendSms), iSendSmsRes, PhoneNum + "", ranNum + "").execute();
-
-            LinearLogin.setVisibility(View.GONE);
-            LinearRegPhoneNum.setVisibility(View.GONE);
-            LinearRegCheckCode.setVisibility(View.VISIBLE);
-            LinearRegFinish.setVisibility(View.GONE);
-            LinearRegForgetPass.setVisibility(View.GONE);
-
-            countDownTimer = new CountDownTimer(120000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    String timer = String.format(Locale.getDefault(), " %02d " + getString(R.string.min) + " , %02d " + getString(R.string.sec),
-                            TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60,
-                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60);
-
-                    txtTimer.setText(timer);
-                }
-
-                @Override
-                public void onFinish() {
-                    txtTimer.setText(R.string.finishTimer);
-                }
-            }.start();
-
-            txtPhoneNum.setText("شماره تلفن شما" + "\n" + PhoneNum);
-
-            //txtShowCode.setText(ranNum);
-
+            new connect_LoginUser(getString(R.string.LinkLoginUser), ishowLoginRes, PhoneNum, "" , "true").execute();
 
         }
     }
+
+    connect_LoginUser.IshowLoginRes ishowLoginRes = new connect_LoginUser.IshowLoginRes() {
+        @Override
+        public void loginUserResult(String res) {
+            if (res.contains(PhoneNum)){
+                Toast.makeText(Activity_Login_PolUser.this, "شماره قبلا استفاده شده!", Toast.LENGTH_SHORT).show();
+            }else {
+                ranNum = RandomNum();
+
+                new connect_SendSms(getString(R.string.LinkSendSms), iSendSmsRes, PhoneNum + "", ranNum + "").execute();
+
+                LinearLogin.setVisibility(View.GONE);
+                LinearRegPhoneNum.setVisibility(View.GONE);
+                LinearRegCheckCode.setVisibility(View.VISIBLE);
+                LinearRegFinish.setVisibility(View.GONE);
+                LinearRegForgetPass.setVisibility(View.GONE);
+
+                countDownTimer = new CountDownTimer(120000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        String timer = String.format(Locale.getDefault(), " %02d " + getString(R.string.min) + " , %02d " + getString(R.string.sec),
+                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60,
+                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60);
+
+                        txtTimer.setText(timer);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        txtTimer.setText(R.string.finishTimer);
+                    }
+                }.start();
+
+                txtPhoneNum.setText("شماره تلفن شما" + "\n" + PhoneNum);
+
+                //txtShowCode.setText(ranNum);
+            }
+        }
+    };
 
     connect_SendSms.ISendSmsRes iSendSmsRes = new connect_SendSms.ISendSmsRes() {
         @Override
@@ -289,7 +301,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
             Toast.makeText(this, "لطفا تمام فیلد های مورد نظر را پر کنید", Toast.LENGTH_SHORT).show();
         } else if (!(PassWord.equals(RePassWord))) {
             Toast.makeText(this, "رمز عبور ها باهم تطابق ندارند!", Toast.LENGTH_SHORT).show();
-        } else if (!(PassWord.length() == 8)) {
+        } else if (!(PassWord.length() <= 8)) {
             Toast.makeText(this, "طول پسورد باید 8 کارکتر باشد", Toast.LENGTH_SHORT).show();
         } else if (!(CodPosty.length() == 10)) {
             Toast.makeText(this, "طول کد پستی باید 10 رقمی باشد", Toast.LENGTH_SHORT).show();

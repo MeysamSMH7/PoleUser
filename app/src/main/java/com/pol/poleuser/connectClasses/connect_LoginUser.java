@@ -14,13 +14,15 @@ public class connect_LoginUser extends AsyncTask {
     public String link = "";
     public String PhoneNum = "";
     public String PassWord = "";
+    public String checkNum;
     private connect_LoginUser.IshowLoginRes _IAddUserResult;
     StringBuilder stringBuilder;
 
-    public connect_LoginUser(String link, connect_LoginUser.IshowLoginRes result, String PhoneNum, String PassWord) {
+    public connect_LoginUser(String link, connect_LoginUser.IshowLoginRes result, String PhoneNum, String PassWord , String checkNum) {
         this.link = link;
         this.PhoneNum = PhoneNum;
         this.PassWord = PassWord;
+        this.checkNum = checkNum;
         _IAddUserResult = result;
     }
 
@@ -36,6 +38,7 @@ public class connect_LoginUser extends AsyncTask {
 
             String sendData = URLEncoder.encode("PhoneNum", "UTF8") + "=" + URLEncoder.encode(PhoneNum, "UTF8");
             sendData += "&" + URLEncoder.encode("Password", "UTF8") + "=" + URLEncoder.encode(PassWord, "UTF8");
+            sendData += "&" + URLEncoder.encode("checkNum", "UTF8") + "=" + URLEncoder.encode(String.valueOf(checkNum), "UTF8");
 
             URL url = new URL(link);
             URLConnection connection = url.openConnection();

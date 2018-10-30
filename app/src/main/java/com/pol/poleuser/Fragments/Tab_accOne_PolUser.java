@@ -40,6 +40,7 @@ public class Tab_accOne_PolUser extends Fragment {
     int IDUser = 0, IDPost = 0;
     AlertDialog ShowAccOneAlert;
     boolean IsAccepting = false;
+    TextView txtShowNoAcc_One;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +51,9 @@ public class Tab_accOne_PolUser extends Fragment {
         listAccOne = new ArrayList<>();
         listAccOneAlert = new ArrayList<>();
         listIDPost = new ArrayList<>();
+
+        txtShowNoAcc_One = view.findViewById(R.id.txtShowNoAcc_One);
+
 
         new connect_AcceptOne(getString(R.string.LinkAcceptOne), iAcceptOne, IDUser, 0).execute();
 
@@ -101,26 +105,28 @@ public class Tab_accOne_PolUser extends Fragment {
             if (IsAccepting) {
                 Toast.makeText(getContext(), res + "", Toast.LENGTH_SHORT).show();
                 IsAccepting = false;
-
             } else {
-                GetJSONAccOne(res);
-                adapter_accone = new ArrayAdapter(getContext(), R.layout.custom_listview_accone, listAccOne) {
-                    @NonNull
-                    @Override
-                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                        convertView = getLayoutInflater().inflate(R.layout.custom_listview_accone, parent, false);
-                        TextView txtCustomlstAccOne = convertView.findViewById(R.id.txtCustomlstAccOne);
-                        if (listAccOne.isEmpty()){
-                            txtCustomlstAccOne.setText("شما هیچ درخواست تایید شده ای ندارید!");
-                        }else {
+                if (res.contains("[]")){
+                    lst_accone.setVisibility(View.GONE);
+                    txtShowNoAcc_One.setVisibility(View.VISIBLE);
+                }else {
+                    GetJSONAccOne(res);
+                    adapter_accone = new ArrayAdapter(getContext(), R.layout.custom_listview_accone, listAccOne) {
+                        @NonNull
+                        @Override
+                        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                            convertView = getLayoutInflater().inflate(R.layout.custom_listview_accone, parent, false);
+                            TextView txtCustomlstAccOne = convertView.findViewById(R.id.txtCustomlstAccOne);
                             txtCustomlstAccOne.setText(listAccOne.get(position));
+
+                            Toast.makeText(getContext(), listAccOne+"", Toast.LENGTH_SHORT).show();
+
+                            return convertView;
                         }
+                    };
 
-                        return convertView;
-                    }
-                };
-
-                lst_accone.setAdapter(adapter_accone);
+                    lst_accone.setAdapter(adapter_accone);
+                }
             }
 
         }
