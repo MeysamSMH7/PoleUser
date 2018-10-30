@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.pol.poleuser.classes.SpinnerClass;
+
+import static com.pol.poleuser.classes.SpinnerClass.aaa;
+
 
 public class Activity_EditProfile_PoleUser extends AppCompatActivity {
 
@@ -20,9 +24,7 @@ public class Activity_EditProfile_PoleUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editprofile_poleuser);
-        EditProfile   = getSharedPreferences("polUser", 0);
-        int StateNameIDEdit = EditProfile.getInt("StateNameID_User", 5);
-        int CityNameIDEdit = EditProfile.getInt("CityNameID_User", 7);
+        EditProfile = getSharedPreferences("polUser", 0);
 
         //LinearRegFinish
         edtFirstNameEdit = (EditText) findViewById(R.id.edtFirstNameEdit);
@@ -35,16 +37,17 @@ public class Activity_EditProfile_PoleUser extends AppCompatActivity {
         spnStateEdit = (Spinner) findViewById(R.id.spnStateEdit);
         spnCityEdit = (Spinner) findViewById(R.id.spnCityEdit);
 
-        SpinnerClass spinner = new SpinnerClass(Activity_EditProfile_PoleUser.this, spnStateEdit, spnCityEdit);
+        SpinnerClass spinner = new SpinnerClass(Activity_EditProfile_PoleUser.this, spnStateEdit, spnCityEdit, true);
         spinner.spinner();
 
-        spnStateEdit.setSelection(5);
-        spnCityEdit.setSelection(7);
+        edtFirstNameEdit.setText(EditProfile.getString("FirstName_User", "خالی")+"");
+        edtLastNameEdit.setText(EditProfile.getString("LastName_User", "خالی")+"");
+        edtPhoneNumberEdit.setText(EditProfile.getInt("PhoneNum_User", 0)+"");
+        edtPasswordEdit.setText(EditProfile.getString("Password_User", "خالی")+"");
+        edtRePasswordEdit.setText(EditProfile.getString("Password_User", "خالی")+"");
+        edtPostalCodeEdit.setText(EditProfile.getInt("CodPosty_User", 0)+"");
+        edtAddressEdit.setText(EditProfile.getString("Address_User", "خالی")+"");
 
-    }
-
-
-    public void btnBackOnClickFinishEdit(View view) {
 
     }
 
@@ -52,5 +55,10 @@ public class Activity_EditProfile_PoleUser extends AppCompatActivity {
     public void btnFinishRegisterEdit(View view) {
 
     }
+
+    public void btnBackOnClickFinishEdit(View view) {
+        finish();
+    }
+
 
 }

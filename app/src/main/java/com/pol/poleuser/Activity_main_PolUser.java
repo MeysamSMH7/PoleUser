@@ -49,7 +49,6 @@ public class Activity_main_PolUser extends AppCompatActivity {
         setContentView(R.layout.page_tolbar_dr);
 
         sharedPreferences = getSharedPreferences("polUser", 0);
-        Toast.makeText(this, sharedPreferences.getInt("StateNameID",0)+"", Toast.LENGTH_SHORT).show();
         getVersionInfo();
 
         frameLayout = (ViewGroup) findViewById(R.id.frameMainPolUser);
@@ -177,7 +176,6 @@ public class Activity_main_PolUser extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_dr) {
-            Toast.makeText(this, "menu_dr", Toast.LENGTH_SHORT).show();
             drawerLayout.openDrawer(Gravity.RIGHT);
             return true;
         }

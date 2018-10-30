@@ -1,20 +1,283 @@
 package com.pol.poleuser.classes;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import java.util.jar.Attributes;
+
 public class SpinnerClass {
-    private ArrayAdapter arrayAdapterState , arrayAdapterCity;
-    public static String StateName , CityName;
-    private Spinner spnState , spnCity;
-public static int StateNameID = 0;
-public static int CityNameID = 0;
+    private ArrayAdapter arrayAdapterState, arrayAdapterCity;
+    public static String StateName, CityName;
+    private Spinner spnState, spnCity;
+    public static int StateNameID = 0;
+    public static int CityNameID = 0;
+
+    private int StateNameIDLocal = 0;
+    private int CityNameIDLocal = 0;
+    private String StateNameLocal = "";
+    private String CityNameLocal = "";
+
+    private boolean editPage = false;
+    SharedPreferences preferencesSpinnerClass;
     Context context;
 
-    String[] NameStatePolArr = {"آذربایجان شرقی", "آذربایجان غربی", "اردبیل", "اصفهان", "البرز", "ایلام", "بوشهر", "تهران", "چهارمحال و بختیاری", "خراسان جنوبی", "خراسان رضوی", "خراسان شمالی", "خوستان", "زنجان", "سمنان", "سیستان و بلوچستان", "فارس", "قزوین", "قم", "کردستان", "کرمان", "کرمانشاه", "کهگلویه و بویراحمد", "گستان", "گیلان", "لرستان", "مازندران", "مرکزی", "هرمزگان", "همدان", "یزد"};
+    public static String aaa = "";
+
+    public SpinnerClass(Context context, Spinner spnState, Spinner spnCity, boolean editPage) {
+        this.context = context;
+        this.spnState = spnState;
+        this.spnCity = spnCity;
+        this.editPage = editPage;
+    }
+
+    public void spinner() {
+
+        spnState.setSelection(0);
+        spnCity.setSelection(0);
+
+
+        preferencesSpinnerClass = context.getSharedPreferences("polUser", 0);
+        StateNameLocal = preferencesSpinnerClass.getString("StateName_User", "خالی");
+        CityNameLocal = preferencesSpinnerClass.getString("CityName_User", "خالی");
+
+        arrayAdapterState = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameStatePolArr);
+        arrayAdapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnState.setAdapter(arrayAdapterState);
+
+
+        spnState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                StateName = parent.getItemAtPosition(position).toString();
+                StateNameID = position;
+                SwitchSpinnerCity();
+                arrayAdapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spnCity.setAdapter(arrayAdapterCity);
+
+                if (editPage) {
+                    for (int i = 0; i < NameStatePolArr.length; i++) {
+                        if (NameStatePolArr[i].equals(StateNameLocal)) {
+                            StateNameIDLocal = i;
+                            break;
+                        }
+                    }
+                    spnState.setSelection(StateNameIDLocal);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spnCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CityName = parent.getItemAtPosition(position).toString();
+                CityNameID = position;
+
+
+                if (editPage) {
+
+                    for (int i = 0; i < NameCity.length; i++) {
+                        if (NameCity[i].equals(CityNameLocal)) {
+                            CityNameIDLocal = i;
+                            break;
+                        }
+                    }
+
+                    spnCity.setSelection(CityNameIDLocal);
+                    editPage = false;
+
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
+    private void SwitchSpinnerCity() {
+
+        switch (StateName) {
+            case "آذربایجان شرقی":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Alarbayejan_Shargi);
+                SetNameCityForEdit(NameCity_Alarbayejan_Shargi);
+                break;
+
+            case "آذربایجان غربی":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Alarbayejan_Gharbi);
+                SetNameCityForEdit(NameCity_Alarbayejan_Gharbi);
+                break;
+
+            case "اردبیل":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Arfebili);
+                SetNameCityForEdit(NameCity_Arfebili);
+                break;
+
+            case "اصفهان":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Esfahan);
+                SetNameCityForEdit(NameCity_Esfahan);
+                break;
+
+            case "البرز":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Alborz);
+                SetNameCityForEdit(NameCity_Alborz);
+                break;
+
+            case "ایلام":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Elam);
+                SetNameCityForEdit(NameCity_Elam);
+                break;
+
+            case "بوشهر":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Boshehr);
+                SetNameCityForEdit(NameCity_Boshehr);
+                break;
+
+            case "تهران":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Tehran);
+                SetNameCityForEdit(NameCity_Tehran);
+                break;
+
+            case "چهارمحال و بختیاری":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_ChaharMahalBakhTiari);
+                SetNameCityForEdit(NameCity_ChaharMahalBakhTiari);
+                break;
+
+            case "خراسان جنوبی":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Khorasan_Jonobi);
+                SetNameCityForEdit(NameCity_Khorasan_Jonobi);
+                break;
+
+            case "خراسان رضوی":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Khorasan_Razavi);
+                SetNameCityForEdit(NameCity_Khorasan_Razavi);
+                break;
+
+            case "خراسان شمالی":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Khorasan_Shomali);
+                SetNameCityForEdit(NameCity_Khorasan_Shomali);
+                break;
+
+            case "خوستان":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Khozestan);
+                SetNameCityForEdit(NameCity_Khozestan);
+                break;
+
+            case "زنجان":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Zanjan);
+                SetNameCityForEdit(NameCity_Zanjan);
+                break;
+
+            case "سمنان":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Semnan);
+                SetNameCityForEdit(NameCity_Semnan);
+                break;
+
+            case "سیستان و بلوچستان":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Sistan);
+                SetNameCityForEdit(NameCity_Sistan);
+                break;
+
+            case "فارس":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Fars);
+                SetNameCityForEdit(NameCity_Fars);
+                break;
+
+            case "قزوین":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Ghazvin);
+                SetNameCityForEdit(NameCity_Ghazvin);
+                break;
+
+            case "قم":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Qom);
+                SetNameCityForEdit(NameCity_Qom);
+                break;
+
+            case "کردستان":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Kordestan);
+                SetNameCityForEdit(NameCity_Kordestan);
+                break;
+
+            case "کرمان":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Kerman);
+                SetNameCityForEdit(NameCity_Kerman);
+                break;
+
+            case "کرمانشاه":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_KermanShah);
+                SetNameCityForEdit(NameCity_KermanShah);
+                break;
+
+            case "کهگلویه و بویراحمد":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Kohgiloye_BoirAhmad);
+                SetNameCityForEdit(NameCity_Kohgiloye_BoirAhmad);
+                break;
+
+            case "گستان":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Gholestan);
+                SetNameCityForEdit(NameCity_Gholestan);
+                break;
+
+            case "گیلان":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Gilan);
+                SetNameCityForEdit(NameCity_Gilan);
+                break;
+
+            case "لرستان":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Lorestan);
+                SetNameCityForEdit(NameCity_Lorestan);
+                break;
+
+            case "مازندران":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Mazandaran);
+                SetNameCityForEdit(NameCity_Mazandaran);
+                break;
+
+            case "مرکزی":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Markazi);
+                SetNameCityForEdit(NameCity_Markazi);
+                break;
+
+            case "هرمزگان":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Hormozgan);
+                SetNameCityForEdit(NameCity_Hormozgan);
+                break;
+
+            case "همدان":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Hamedan);
+                SetNameCityForEdit(NameCity_Hamedan);
+                break;
+
+            case "یزد":
+                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Yazd);
+                SetNameCityForEdit(NameCity_Yazd);
+                break;
+        }
+    }
+
+    private void SetNameCityForEdit(String[] NameCityEdit) {
+        NameCity = new String[NameCityEdit.length];
+        for (int a = 0; a < NameCityEdit.length; a++) {
+            NameCity[a] = NameCityEdit[a];
+        }
+    }
+
+    String[] NameCity = {""};
+    String[] NameStatePolArr = {"تهران", "آذربایجان شرقی", "آذربایجان غربی", "اردبیل", "اصفهان", "البرز", "ایلام", "بوشهر", "چهارمحال و بختیاری", "خراسان جنوبی", "خراسان رضوی", "خراسان شمالی", "خوستان", "زنجان", "سمنان", "سیستان و بلوچستان", "فارس", "قزوین", "قم", "کردستان", "کرمان", "کرمانشاه", "کهگلویه و بویراحمد", "گستان", "گیلان", "لرستان", "مازندران", "مرکزی", "هرمزگان", "همدان", "یزد"};
 
     String[] NameCity_Alarbayejan_Shargi = {"سهند", "کشکسرای", "سیس", "دوزدوزان", "تیمورلو", "صوفیان", "سردرود", "هادیشهر", "هشترود", "زرنق", "ترکمانچای", "ورزقان", "تسوج", "زنوز", "ایلخچی", "شرفخانه", "مهربان", "مبارک شهر", "تیکمه داش", "باسمنج", "سیه رود", "میانه", "خمارلو", "خواجه", "بناب مرند", "قره آغاج", "وایقان", "مراغه", "ممقان", "خامنه", "خسروشاه", "لیلان", "نظرکهریزی", "اهر", "بخشایش", "آقکند", "جوان قلعه", "کلیبر", "مرند", "اسکو", "شندآباد", "شربیان", "گوگان", "بستان آباد", "تبریز", "جلفا", "اچاچی", "هریس", "یامچی", "خاروانا", "کوزه کنان", "خداجو(خراجو)", "آذرشهر", "شبستر", "سراب", "ملکان", "بناب", "هوراند", "کلوانق", "ترک", "عجب شیر", "آبش احمد"};
     String[] NameCity_Alarbayejan_Gharbi = {"تازه شهر", "نالوس", "ایواوغلی", "شاهین دژ", "گردکشانه", "باروق", "سیلوانه", "بازرگان", "نازک علیا", "ربط", "تکاب", "دیزج دیز", "سیمینه", "نوشین", "میاندوآب", "مرگنلر", "سلماس", "آواجیق", "قطور", "محمودآباد", "خوی", "نقده", "سرو", "خلیفان", "پلدشت", "میرآباد", "اشنویه", "زرآباد", "بوکان", "پیرانشهر", "چهاربرج", "قوشچی", "شوط", "ماکو", "سیه چشمه", "سردشت", "کشاورز", "فیرورق", "محمدیار", "ارومیه", "مهاباد", "قره ضیاءالدین"};
@@ -23,7 +286,7 @@ public static int CityNameID = 0;
     String[] NameCity_Alborz = {"چهارباغ", "آسارا", "کرج", "طالقان", "شهرجدیدهشتگرد", "محمدشهر", "مشکین دشت", "نظرآباد", "هشتگرد", "ماهدشت", "اشتهارد", "کوهسار", "گرمدره", "تنکمان", "گلسار", "کمال شهر", "فردیس"};
     String[] NameCity_Elam = {"آبدانان", "شباب", "موسیان", "بدره", "ایلام", "ایوان", "مهران", "آسمان آباد", "پهله", "مهر", "سراب باغ", "بلاوه", "میمه", "دره شهر", "ارکواز", "مورموری", "توحید", "دهلران", "لومار", "چوار", "زرنه", "صالح آباد", "سرابله", "ماژین", "دلگشا"};
     String[] NameCity_Boshehr = {"ریز", "برازجان", "بندرریگ", "اهرم", "دوراهک", "خورموج", "نخل تقی", "کلمه", "بندردیلم", "وحدتیه", "بنک", "چغادک", "بندردیر", "کاکی", "جم", "دالکی", "بندرگناوه", "آباد", "آبدان", "خارک", "شنبه", "بوشکان", "انارستان", "شبانکاره", "سیراف", "دلوار", "بردستان", "بادوله", "عسلویه", "تنگ ارم", "امام حسن", "سعد آباد", "بندرکنگان", "بوشهر", "بردخون", "آب پخش"};
-    String[] NameCity_Tehran = {"شاهدشهر", "پیشوا", "جوادآباد", "ارجمند", "ری", "نصیرشهر", "رودهن", "اندیشه", "نسیم شهر", "صباشهر", "ملارد", "شمشک", "پاکدشت", "باقرشهر", "احمد آباد مستوفی", "کیلان", "قرچک", "فردوسیه", "گلستان", "ورامین", "فیروزکوه", "فشم", "پرند", "آبعلی", "چهاردانگه", "تهران", "بومهن", "وحیدیه", "صفادشت", "لواسان", "فرون اباد", "کهریزک", "رباطکریم", "آبسرد", "باغستان", "صالحیه", "شهریار", "قدس", "تجریش", "شریف آباد", "حسن آباد", "اسلامشهر", "دماوند", "پردیس"};
+    String[] NameCity_Tehran = {"تهران", "شاهدشهر", "پیشوا", "جوادآباد", "ارجمند", "ری", "نصیرشهر", "رودهن", "اندیشه", "نسیم شهر", "صباشهر", "ملارد", "شمشک", "پاکدشت", "باقرشهر", "احمد آباد مستوفی", "کیلان", "قرچک", "فردوسیه", "گلستان", "ورامین", "فیروزکوه", "فشم", "پرند", "آبعلی", "چهاردانگه", "بومهن", "وحیدیه", "صفادشت", "لواسان", "فرون اباد", "کهریزک", "رباطکریم", "آبسرد", "باغستان", "صالحیه", "شهریار", "قدس", "تجریش", "شریف آباد", "حسن آباد", "اسلامشهر", "دماوند", "پردیس"};
     String[] NameCity_Hormozgan = {"بیکاء", "تیرور", "گروک", "قشم", "کوشکنار", "کیش", "سرگز", "بندرعباس", "زیارتعلی", "سندرک", "کوهستک", "لمزان", "رویدر", "قلعه قاضی", "فارغان", "ابوموسی", "هشتبندی", "سردشت", "درگهان", "پارسیان", "کنگ", "جناح", "تازیان پایین", "دهبارز", "میناب", "سیریک", "سوزا", "خمیر", "چارک", "حاجی اباد", "فین", "بندرجاسک", "گوهران", "هرمز", "دشتی", "بندرلنگه", "بستک", "تخت"};
     String[] NameCity_ChaharMahalBakhTiari = {"وردنجان", "گوجان", "گهرو", "سورشجان", "سرخون", "شهرکرد", "منج", "بروجن", "پردنجان", "سامان", "فرخ شهر", "صمصامی", "طاقانک", "کاج", "نقنه", "لردگان", "باباحیدر", "دستنا", "سودجان", "بازفت", "هفشجان", "سردشت", "فرادبنه", "چلیچه", "بن", "فارسان", "شلمزار", "نافچ", "دشتک", "بلداجی", "آلونی", "گندمان", "جونقان", "ناغان", "هارونی", "چلگرد", "کیان", "اردل", "سفیددشت", "مال خلیفه"};
     String[] NameCity_Khorasan_Jonobi = {"اسلامیه", "شوسف", "قاین", "عشق آباد", "طبس مسینا", "ارسک", "آیسک", "نیمبلوک", "دیهوک", "سربیشه", "محمدشهر", "بیرجند", "فردوس", "نهبندان", "اسفدن", "گزیک", "حاجی آباد", "سه قلعه", "آرین شهر", "مود", "خوسف", "قهستان", "بشرویه", "سرایان", "خضری دشت بیاض", "طبس", "اسدیه", "زهان"};
@@ -47,177 +310,5 @@ public static int CityNameID = 0;
     String[] NameCity_Markazi = {"آستانه", "خنجین", "نراق", "کمیجان", "آشتیان", "رازقان", "مهاجران", "غرق آباد", "خنداب", "قورچی باشی", "خشکرود", "ساروق", "محلات", "شازند", "ساوه", "میلاجرد", "تفرش", "زاویه", "اراک", "توره", "نوبران", "فرمهین", "دلیجان", "پرندک", "کارچان", "نیمور", "هندودر", "آوه", "جاورسیان", "خمین", "مامونیه", "داودآباد", "شهباز"};
     String[] NameCity_Hamedan = {"زنگنه", "دمق", "سرکان", "آجین", "جورقان", "برزول", "فامنین", "سامن", "بهار", "فرسفج", "شیرین سو", "مریانج", "فیروزان", "قروه درجزین", "ازندریان", "لالجین", "گل تپه", "گیان", "ملایر", "صالح آباد", "تویسرکان", "اسدآباد", "همدان", "نهاوند", "رزن", "جوکار", "مهاجران", "کبودرآهنگ", "قهاوند"};
     String[] NameCity_Yazd = {"مروست", "مهردشت", "حمیدیا", "تفت", "اشکذر", "ندوشن", "یزد", "عقدا", "بهاباد", "ابرکوه", "زارچ", "نیر", "اردکان", "هرات", "بفروییه", "شاهدیه", "بافق", "خضرآباد", "میبد", "مهریز", "احمدآباد"};
-
-    public SpinnerClass(Context context , Spinner spnState, Spinner spnCity){
-        this.context = context;
-        this.spnState = spnState;
-        this.spnCity =spnCity;
-    }
-
-    public void spinner(){
-        arrayAdapterState = new ArrayAdapter(context , android.R.layout.simple_spinner_item , NameStatePolArr);
-        arrayAdapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnState.setAdapter(arrayAdapterState);
-
-        spnState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                StateName = parent.getItemAtPosition(position).toString();
-                StateNameID = spnState.getId();
-                SwitchSpinnerCity();
-                arrayAdapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spnCity.setAdapter(arrayAdapterCity);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spnCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                CityName = parent.getItemAtPosition(position).toString();
-                CityNameID = spnCity.getId();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-    }
-
-    private void SwitchSpinnerCity(){
-
-        switch (StateName) {
-            case "آذربایجان شرقی":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Alarbayejan_Shargi);
-                break;
-
-            case "آذربایجان غربی":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Alarbayejan_Gharbi);
-                break;
-
-            case "اردبیل":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Arfebili);
-                break;
-
-            case "اصفهان":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Esfahan);
-                break;
-
-            case "البرز":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Alborz);
-                break;
-
-            case "ایلام":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Elam);
-                break;
-
-            case "بوشهر":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Boshehr);
-                break;
-
-            case "تهران":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Tehran);
-                break;
-
-            case "چهارمحال و بختیاری":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_ChaharMahalBakhTiari);
-                break;
-
-            case "خراسان جنوبی":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Khorasan_Jonobi);
-                break;
-
-            case "خراسان رضوی":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Khorasan_Razavi);
-                break;
-
-            case "خراسان شمالی":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Khorasan_Shomali);
-                break;
-
-            case "خوستان":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Khozestan);
-                break;
-
-            case "زنجان":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Zanjan);
-                break;
-
-            case "سمنان":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Semnan);
-                break;
-
-            case "سیستان و بلوچستان":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Sistan);
-                break;
-
-            case "فارس":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Fars);
-                break;
-
-            case "قزوین":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Ghazvin);
-                break;
-
-            case "قم":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Qom);
-                break;
-
-            case "کردستان":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Kordestan);
-                break;
-
-            case "کرمان":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Kerman);
-                break;
-
-            case "کرمانشاه":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_KermanShah);
-                break;
-
-            case "کهگلویه و بویراحمد":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Kohgiloye_BoirAhmad);
-                break;
-
-            case "گستان":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Gholestan);
-                break;
-
-            case "گیلان":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Gilan);
-                break;
-
-            case "لرستان":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Lorestan);
-                break;
-
-            case "مازندران":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Mazandaran);
-                break;
-
-            case "مرکزی":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Markazi);
-                break;
-
-            case "هرمزگان":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Hormozgan);
-                break;
-
-            case "همدان":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Hamedan);
-                break;
-
-            case "یزد":
-                arrayAdapterCity = new ArrayAdapter(context, android.R.layout.simple_spinner_item, NameCity_Yazd);
-                break;
-        }
-    }
 
 }
