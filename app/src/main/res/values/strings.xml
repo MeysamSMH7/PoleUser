@@ -37,7 +37,7 @@
     <string name="edtAddress">آدرس</string>
     <string name="btnFinishRegister">تکمیل ثبت نام</string>
     <string name="btnFinish">انصراف و بستن</string>
-    <string name="doneRegister">موفق شدید!</string>
+    <string name="doneRegister">ثبت نام شما با موفقیت انجام شد</string>
     <string name="doneNotRegister">موفق نشدید!</string>
 
     <!--Register ==> ReGet Code-->

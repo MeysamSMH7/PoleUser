@@ -49,8 +49,7 @@ public class Activity_main_PolUser extends AppCompatActivity {
         setContentView(R.layout.page_tolbar_dr);
 
         sharedPreferences = getSharedPreferences("polUser", 0);
-
-
+        Toast.makeText(this, sharedPreferences.getInt("StateNameID",0)+"", Toast.LENGTH_SHORT).show();
         getVersionInfo();
 
         frameLayout = (ViewGroup) findViewById(R.id.frameMainPolUser);
@@ -108,49 +107,15 @@ public class Activity_main_PolUser extends AppCompatActivity {
                 switch (id) {
 
                     case R.id.itmLogOff:
-                        AlertDialog.Builder builder = new AlertDialog.Builder(Activity_main_PolUser.this);
-                        builder.create();
-                        builder.setTitle("خروج از حساب کاربری");
-                        builder.setMessage("آیا میخواهید از حساب کاربریتان خارج شوید؟");
-                        builder.setPositiveButton("آره", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                                editor.putInt("ID_User", 0);
-                                editor.putString("FirstName_User", null);
-                                editor.putString("LastName_User", null);
-                                editor.putInt("PhoneNum_User", 0);
-                                editor.putString("StateName_User", null);
-                                editor.putString("CityName_User", null);
-                                editor.putInt("CodPosty_User", 0);
-                                editor.putString("Address_User", null);
-                                editor.putString("Password_User", null);
-                                editor.putBoolean("statusLogin?", false);
-                                editor.apply();
-
-                                Intent intent = new Intent(Activity_main_PolUser.this , Activity_Login_PolUser.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
-
-                        builder.setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        builder.show();
-
+                        AlertDialogLogout();
 
                         break;
 
                     case R.id.first7:
 
-Intent intent = new Intent(Activity_main_PolUser.this,Activity_EditProfile_PoleUser.class);
-startActivity(intent);
-finish();
+                        Intent intent = new Intent(Activity_main_PolUser.this, Activity_EditProfile_PoleUser.class);
+                        startActivity(intent);
 
                         break;
                 }
@@ -159,6 +124,44 @@ finish();
             }
         });
 
+
+    }
+
+    private void AlertDialogLogout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Activity_main_PolUser.this);
+        builder.create();
+        builder.setTitle("خروج از حساب کاربری");
+        builder.setMessage("آیا میخواهید از حساب کاربریتان خارج شوید؟");
+        builder.setPositiveButton("آره", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.putInt("ID_User", 0);
+                editor.putString("FirstName_User", null);
+                editor.putString("LastName_User", null);
+                editor.putInt("PhoneNum_User", 0);
+                editor.putString("StateName_User", null);
+                editor.putString("CityName_User", null);
+                editor.putInt("CodPosty_User", 0);
+                editor.putString("Address_User", null);
+                editor.putString("Password_User", null);
+                editor.putBoolean("statusLogin?", false);
+                editor.apply();
+
+                Intent intent = new Intent(Activity_main_PolUser.this, Activity_Login_PolUser.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
 
     }
 

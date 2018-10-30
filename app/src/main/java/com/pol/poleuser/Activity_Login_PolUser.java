@@ -304,16 +304,14 @@ public class Activity_Login_PolUser extends AppCompatActivity {
         public void addUserResult(String res) {
 
             if (res.contains("ok!")) {
-
-                SharedPreferences.Editor editor = preferencesLogin.edit();
-                editor.putBoolean("statusLogin?", true);
-                editor.commit();
-
                 Toast.makeText(Activity_Login_PolUser.this, getText(R.string.doneRegister), Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(Activity_Login_PolUser.this, Activity_main_PolUser.class);
-                startActivity(intent);
-                finish();
+                LinearLogin.setVisibility(View.VISIBLE);
+                LinearRegPhoneNum.setVisibility(View.GONE);
+                LinearRegCheckCode.setVisibility(View.GONE);
+                LinearRegFinish.setVisibility(View.GONE);
+                LinearRegForgetPass.setVisibility(View.GONE);
+
             } else {
                 Toast.makeText(Activity_Login_PolUser.this, getText(R.string.doneNotRegister), Toast.LENGTH_SHORT).show();
             }
@@ -388,8 +386,6 @@ public class Activity_Login_PolUser extends AppCompatActivity {
                 editor.putInt("PhoneNum_User", object.getInt("PhoneNum"));
                 editor.putString("StateName_User", object.getString("StateName"));
                 editor.putString("CityName_User", object.getString("CityName"));
-                editor.putInt("StateNameID_User", StateNameID);
-                editor.putInt("CityNameID_User", CityNameID);
                 editor.putInt("CodPosty_User", object.getInt("CodPosty"));
                 editor.putString("Address_User", object.getString("Address"));
                 editor.putString("Password_User", object.getString("Password"));
