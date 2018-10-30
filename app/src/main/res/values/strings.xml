@@ -2,15 +2,16 @@
     <string name="app_name">Pole User</string>
 
     <!--Links-->
-    <string name="LinkAddUser">http://10.0.3.2/pol/User/newUser.php</string>
-    <string name="LinkLoginUser">http://10.0.3.2/pol/User/selectUser.php</string>
-    <string name="LinkGetPass">http://10.0.3.2/pol/User/sms/getPassSmS.php</string>
-    <string name="LinkGetSubSubject">http://10.0.3.2/pol/User/getSubSubject.php</string>
-    <string name="LinkRequestUser">http://10.0.3.2/pol/req/requestUser.php</string>
-    <string name="LinkSendSms">http://10.0.3.2/pol/User/sms/SendCod.php</string>
-    <string name="LinkAcceptOne">http://10.0.3.2/pol/req/requestWaitForAccUser.php</string>
-    <string name="LinkWaiteForPrice">http://10.0.3.2/pol/req/requestWaitForPrice.php</string>
-    <string name="LinkPayMoney">http://10.0.3.2/pol/req/requestPayMoney.php</string>
+    <string name="LinkAddUser">http://amlakeyekta.ir/pol/User/newUser.php</string>
+    <string name="LinkLoginUser">http://amlakeyekta.ir/pol/User/selectUser.php</string>
+    <string name="LinkGetPass">http://amlakeyekta.ir/pol/User/sms/getPassSmS.php</string>
+    <string name="LinkGetSubSubject">http://amlakeyekta.ir/pol/User/getSubSubject.php</string>
+    <string name="LinkRequestUser">http://amlakeyekta.ir/pol/req/requestUser.php</string>
+    <string name="LinkSendSms">http://amlakeyekta.ir/pol/User/sms/SendCod.php</string>
+    <string name="LinkAcceptOne">http://amlakeyekta.ir/pol/req/requestWaitForAccUser.php</string>
+    <string name="LinkWaiteForPrice">http://amlakeyekta.ir/pol/req/requestWaitForPrice.php</string>
+    <string name="LinkPayMoney">http://amlakeyekta.ir/pol/req/requestPayMoney.php</string>
+    <string name="LinkEditPro">http://amlakeyekta.ir/pol/User/editPro.php</string>
 
     <!--login Activity-->
     <string name="edtPhoneNumber">شماره تلفن (بدون صفر)</string>
