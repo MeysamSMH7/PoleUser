@@ -109,7 +109,11 @@ public class Tab_accOne_PolUser extends Fragment {
                     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                         convertView = getLayoutInflater().inflate(R.layout.custom_listview_accone, parent, false);
                         TextView txtCustomlstAccOne = convertView.findViewById(R.id.txtCustomlstAccOne);
-                        txtCustomlstAccOne.setText(listAccOne.get(position));
+                        if (listAccOne.isEmpty()){
+                            txtCustomlstAccOne.setText("شما هیچ درخواست تایید شده ای ندارید!");
+                        }else {
+                            txtCustomlstAccOne.setText(listAccOne.get(position));
+                        }
 
                         return convertView;
                     }
