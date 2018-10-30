@@ -67,6 +67,13 @@
     <string name="txtShowNoWaitMoney">شما هیچ صورت حسابی برای پرداخت ندارید!</string>
 
 
+    <!--EditProfile-->
+    <string name="btnClose">بستن</string>
+    <string name="btnSaveEdit">ذخیره ی تغییرات</string>
+
+
+
+
     <!--Toast-->
     <string name="ToastFillAllBlanks">لطفا تمام فیلد های مورد نظر را پر کنید</string>
     <string name="ToastRePassword">رمز عبور ها باهم تطابق ندارند!</string>

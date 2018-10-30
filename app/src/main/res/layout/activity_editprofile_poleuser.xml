@@ -88,14 +88,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:onClick="btnBackOnClickFinishEdit"
-                android:text="@string/btnFinish" />
+                android:text="@string/btnClose" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:onClick="btnFinishRegisterEdit"
-                android:text="@string/btnFinishRegister" />
+                android:text="@string/btnSaveEdit" />
 
         </LinearLayout>
 
