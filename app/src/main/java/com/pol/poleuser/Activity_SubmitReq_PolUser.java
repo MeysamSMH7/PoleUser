@@ -3,6 +3,7 @@ package com.pol.poleuser;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -33,7 +34,8 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
     private boolean IsCurrentday = false, IsDateClicked = false;
     private String SubjectServer = "", DateDayServer = "", DateMonthServer = "", NameWeekServer = "", DateYearServer = "", PeriodTimeServer = "", AddressServer = "", UserIDServer = "", txtServer = "", StateNameServer = "";
     private SharedPreferences preferencesLogin;
-boolean TimeIsTrue = false;
+    boolean TimeIsTrue = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +105,13 @@ boolean TimeIsTrue = false;
             }
         });
 
+        gridViewDate.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return event.getAction() == MotionEvent.ACTION_MOVE;
+            }
+        });
+
         //Period Time ************************************************************************
         radioGPSubmitReq.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -123,7 +132,7 @@ boolean TimeIsTrue = false;
                         } else {
                             Toast.makeText(Activity_SubmitReq_PolUser.this, "میتونی", Toast.LENGTH_SHORT).show();
                             PeriodTimeServer = getString(R.string.radiobtnPeriodTime1SubReq);
-                            TimeIsTrue=true;
+                            TimeIsTrue = true;
                         }
 
                         break;
@@ -142,7 +151,7 @@ boolean TimeIsTrue = false;
                         } else {
                             Toast.makeText(Activity_SubmitReq_PolUser.this, "میتونی", Toast.LENGTH_SHORT).show();
                             PeriodTimeServer = getString(R.string.radiobtnPeriodTime2SubReq);
-                            TimeIsTrue=true;
+                            TimeIsTrue = true;
                         }
 
                         break;
@@ -161,7 +170,7 @@ boolean TimeIsTrue = false;
                         } else {
                             Toast.makeText(Activity_SubmitReq_PolUser.this, "میتونی", Toast.LENGTH_SHORT).show();
                             PeriodTimeServer = getString(R.string.radiobtnPeriodTime3SubReq);
-                            TimeIsTrue=true;
+                            TimeIsTrue = true;
                         }
                         break;
                 }
@@ -176,16 +185,13 @@ boolean TimeIsTrue = false;
         txtServer = edtExplainSubmitReq.getText().toString();
 
 
-
-        if (txtServer.equals("") || AddressServer.equals("")){
+        if (txtServer.equals("") || AddressServer.equals("")) {
             Toast.makeText(this, "لطفا تمام فیلد های مورد نظر را پر کنید", Toast.LENGTH_SHORT).show();
-        }else if(!TimeIsTrue){
+        } else if (!TimeIsTrue) {
             Toast.makeText(this, "زمان رو درست کن", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             new connect_SubmitReq(getString(R.string.LinkRequestUser), resultSubReq, SubjectServer, DateDayServer, DateMonthServer, NameWeekServer, DateYearServer, PeriodTimeServer, AddressServer, UserIDServer, txtServer, StateNameServer).execute();
         }
-
-
 
 
     }
@@ -194,6 +200,7 @@ boolean TimeIsTrue = false;
         @Override
         public void SubmitReqResult(String res) {
             Toast.makeText(Activity_SubmitReq_PolUser.this, res + "", Toast.LENGTH_SHORT).show();
+            finish();
         }
     };
 

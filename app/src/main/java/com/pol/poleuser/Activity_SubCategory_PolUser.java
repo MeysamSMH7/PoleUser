@@ -50,6 +50,7 @@ public class Activity_SubCategory_PolUser extends AppCompatActivity {
                     Intent intent = new Intent(Activity_SubCategory_PolUser.this,Activity_SubmitReq_PolUser.class);
                     intent.putExtra("Subject",lstSubCategory.getItemAtPosition(position).toString());
                     startActivity(intent);
+                    finish();
                 }
             });
 
