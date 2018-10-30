@@ -2,7 +2,6 @@ package com.pol.poleuser;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.inputmethodservice.Keyboard;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,21 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.pol.poleuser.classes.SpinnerClass;
 import com.pol.poleuser.connectClasses.connect_GetPass;
 import com.pol.poleuser.connectClasses.connect_LoginUser;
 import com.pol.poleuser.connectClasses.connect_SendSms;
 import com.pol.poleuser.connectClasses.connect_addUser;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-
-import static com.pol.poleuser.classes.SpinnerClass.CityNameID;
-import static com.pol.poleuser.classes.SpinnerClass.StateNameID;
 
 public class Activity_Login_PolUser extends AppCompatActivity {
     public String getDataServerLogin = "";
@@ -134,11 +127,11 @@ public class Activity_Login_PolUser extends AppCompatActivity {
 
             getDataServerLogin = res;
             if (PhoneNum.equals("") || PassWord.equals("")){
-                Toast.makeText(Activity_Login_PolUser.this, "لطفا فیلدها را پر کنید!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastFillAllBlanks), Toast.LENGTH_SHORT).show();
             }else {
                 if (!res.contains("[]")) {
 
-                    Toast.makeText(Activity_Login_PolUser.this, "خوش اومدی!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastWelcome), Toast.LENGTH_SHORT).show();
 
                     GetJSONArrayLogin();
 
@@ -147,7 +140,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
                     finish();
 
                 } else {
-                    Toast.makeText(Activity_Login_PolUser.this, "شماره تلفن یا پسورد شما اشتباه می باشد!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastWrongPassOrPhone), Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -172,7 +165,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
 
 
         if (PhoneNum.isEmpty() || !(PhoneNum.trim().length() == 10)) {
-            Toast.makeText(Activity_Login_PolUser.this, "لطفا شماره تلفن خود را وارد کنید!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastWrongPhoneNum), Toast.LENGTH_SHORT).show();
         } else {
 
             new connect_LoginUser(getString(R.string.LinkLoginUser), ishowLoginRes, PhoneNum, "" , "true").execute();
@@ -184,7 +177,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
         @Override
         public void loginUserResult(String res) {
             if (res.contains(PhoneNum)){
-                Toast.makeText(Activity_Login_PolUser.this, "شماره قبلا استفاده شده!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastUsedPhone), Toast.LENGTH_SHORT).show();
             }else {
                 ranNum = RandomNum();
 
@@ -273,9 +266,9 @@ public class Activity_Login_PolUser extends AppCompatActivity {
 
         } else if (countbtnClick < 5) {
             countbtnClick++;
-            Toast.makeText(Activity_Login_PolUser.this, "کد غلط می باشد!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastWrongCode), Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(Activity_Login_PolUser.this, "بیش از اندازه امتحان کردید!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastTooManyTry), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -298,13 +291,13 @@ public class Activity_Login_PolUser extends AppCompatActivity {
 
 
         if (FirstName.equals("") || LastName.equals("") || PassWord.equals("") || CodPosty.equals("") || Address.equals("")) {
-            Toast.makeText(this, "لطفا تمام فیلد های مورد نظر را پر کنید", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.ToastFillAllBlanks), Toast.LENGTH_SHORT).show();
         } else if (!(PassWord.equals(RePassWord))) {
-            Toast.makeText(this, "رمز عبور ها باهم تطابق ندارند!", Toast.LENGTH_SHORT).show();
-        } else if (!(PassWord.length() <= 8)) {
-            Toast.makeText(this, "طول پسورد باید 8 کارکتر باشد", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.ToastRePassword), Toast.LENGTH_SHORT).show();
+        } else if (!(PassWord.length() == 8)) {
+            Toast.makeText(this, getString(R.string.ToastPassword8), Toast.LENGTH_SHORT).show();
         } else if (!(CodPosty.length() == 10)) {
-            Toast.makeText(this, "طول کد پستی باید 10 رقمی باشد", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.ToastCodPost), Toast.LENGTH_SHORT).show();
         } else {
             new connect_addUser(getString(R.string.LinkAddUser), resultAddUser, FirstName, LastName, PhoneNum, PassWord, CodPosty, StateName, CityName, Address).execute();
         }
@@ -317,7 +310,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
         public void addUserResult(String res) {
 
             if (res.contains("ok!")) {
-                Toast.makeText(Activity_Login_PolUser.this, getText(R.string.doneRegister), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity_Login_PolUser.this, getText(R.string.ToastdoneRegister), Toast.LENGTH_SHORT).show();
 
                 LinearLogin.setVisibility(View.VISIBLE);
                 LinearRegPhoneNum.setVisibility(View.GONE);
@@ -326,7 +319,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
                 LinearRegForgetPass.setVisibility(View.GONE);
 
             } else {
-                Toast.makeText(Activity_Login_PolUser.this, getText(R.string.doneNotRegister), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity_Login_PolUser.this, getText(R.string.ToastdoneNotRegister), Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -356,7 +349,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
         public void getPassUserResult(String res) {
 
             if (res.contains("no!")) {
-                Toast.makeText(Activity_Login_PolUser.this, "شماره وارد شده موجود نمی باشد!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastNoPhone), Toast.LENGTH_SHORT).show();
                 edtPhoneNumberForget.setText("");
                 txtYourPass.setText("");
             } else {

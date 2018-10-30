@@ -29,7 +29,7 @@ public class Activity_SubCategory_PolUser extends AppCompatActivity {
         lstSubCategory = (ListView) findViewById(R.id.lstSubCategory);
 
         if (STSubCategory.equals("null")) {
-            Toast.makeText(this, "چیزی ارائه نشده", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.ToastNothingToShow), Toast.LENGTH_SHORT).show();
         } else {
             stringArrSubCategory = STSubCategory.split(",");
             arrayListSubCategory = new ArrayAdapter(this, R.layout.custom_listview_subcategory, stringArrSubCategory) {

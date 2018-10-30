@@ -38,8 +38,7 @@
     <string name="edtAddress">آدرس</string>
     <string name="btnFinishRegister">تکمیل ثبت نام</string>
     <string name="btnFinish">انصراف و بستن</string>
-    <string name="doneRegister">ثبت نام شما با موفقیت انجام شد</string>
-    <string name="doneNotRegister">موفق نشدید!</string>
+
 
     <!--Register ==> ReGet Code-->
     <string name="txtYourPass">رمز شما</string>
@@ -67,4 +66,31 @@
     <string name="txtShowNoAcc_One">شما هیچ کار تایید شده ای ندارید!</string>
     <string name="txtShowNoWaitMoney">شما هیچ صورت حسابی برای پرداخت ندارید!</string>
 
+
+    <!--Toast-->
+    <string name="ToastFillAllBlanks">لطفا تمام فیلد های مورد نظر را پر کنید</string>
+    <string name="ToastRePassword">رمز عبور ها باهم تطابق ندارند!</string>
+    <string name="ToastPassword8">طول پسورد باید 8 کارکتر باشد</string>
+    <string name="ToastCodPost">طول کد پستی باید 10 رقمی باشد</string>
+    <string name="ToastChangeSave">تغییر ایجاد شد</string>
+    <string name="ToastChangeNotSave">بامشکل روبه رو شد</string>
+
+    <string name="ToastWelcome">خوش اومدی!</string>
+    <string name="ToastWrongPassOrPhone">شماره تلفن یا پسورد شما اشتباه می باشد!</string>
+    <string name="ToastWrongPhoneNum">لطفا شماره تلفن خود را وارد کنید!</string>
+    <string name="ToastUsedPhone">شماره قبلا استفاده شده!</string>
+    <string name="ToastWrongCode">کد غلط می باشد!</string>
+    <string name="ToastTooManyTry">بیش از اندازه امتحان کردید!</string>
+    <string name="ToastdoneRegister">ثبت نام شما با موفقیت انجام شد</string>
+    <string name="ToastdoneNotRegister">موفق نشدید!</string>
+    <string name="ToastNoPhone">شماره وارد شده موجود نمی باشد!</string>
+    <string name="ToastNothingToShow">"چیزی ارائه نشده"</string>
+
+    <string name="ToastChoseDate">تاریخ رو انتخاب کن</string>
+    <string name="ToastNotThisTime">این ساعت رو نمیتونی</string>
+    <string name="ToastTimeIsNotRight">زمان رو درست کن</string>
+
+
+
+    <string name="Toast">متن</string>
 </resources>

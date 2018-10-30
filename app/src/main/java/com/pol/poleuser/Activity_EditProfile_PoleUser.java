@@ -27,8 +27,6 @@ public class Activity_EditProfile_PoleUser extends AppCompatActivity {
         EditProfile = getSharedPreferences("polUser", 0);
         IDUser  = EditProfile.getInt("ID_User",0)+"";
 
-        Toast.makeText(this, IDUser+"", Toast.LENGTH_SHORT).show();
-
         //LinearRegFinish
         edtFirstNameEdit = (EditText) findViewById(R.id.edtFirstNameEdit);
         edtLastNameEdit = (EditText) findViewById(R.id.edtLastNameEdit);
@@ -66,13 +64,13 @@ public class Activity_EditProfile_PoleUser extends AppCompatActivity {
         Address = edtAddressEdit.getText().toString();
 
         if (FirstName.equals("") || LastName.equals("") || PassWord.equals("") || CodPosty.equals("") || Address.equals("")) {
-            Toast.makeText(this, "لطفا تمام فیلد های مورد نظر را پر کنید", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.ToastFillAllBlanks), Toast.LENGTH_SHORT).show();
         } else if (!(PassWord.equals(RePassWord))) {
-            Toast.makeText(this, "رمز عبور ها باهم تطابق ندارند!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.ToastRePassword), Toast.LENGTH_SHORT).show();
         } else if (!(PassWord.length() == 8)) {
-            Toast.makeText(this, "طول پسورد باید 8 کارکتر باشد", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.ToastPassword8), Toast.LENGTH_SHORT).show();
         } else if (!(CodPosty.length() == 10)) {
-            Toast.makeText(this, "طول کد پستی باید 10 رقمی باشد", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.ToastCodPost), Toast.LENGTH_SHORT).show();
         } else {
             new connect_EditPro(getString(R.string.LinkEditPro), ishowEditProRes, IDUser,FirstName, LastName, PhoneNum, PassWord, CodPosty, StateName, CityName, Address).execute();
         }
@@ -97,9 +95,9 @@ public class Activity_EditProfile_PoleUser extends AppCompatActivity {
                 editor.putString("Address_User", Address);
                 editor.apply();
 
-                Toast.makeText(Activity_EditProfile_PoleUser.this, "تغییر ایجاد شد", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity_EditProfile_PoleUser.this, getString(R.string.ToastChangeSave), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(Activity_EditProfile_PoleUser.this, "بامشکل روبه رو شد", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity_EditProfile_PoleUser.this, getString(R.string.ToastChangeNotSave), Toast.LENGTH_SHORT).show();
             }
 
 
