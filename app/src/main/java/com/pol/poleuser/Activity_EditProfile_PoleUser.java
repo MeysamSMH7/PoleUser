@@ -53,7 +53,6 @@ public class Activity_EditProfile_PoleUser extends AppCompatActivity {
 
     }
 
-
     public void btnFinishRegisterEdit(View view) {
 
         FirstName = edtFirstNameEdit.getText().toString();
