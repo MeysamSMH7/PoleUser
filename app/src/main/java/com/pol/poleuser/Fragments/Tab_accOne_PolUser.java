@@ -101,6 +101,7 @@ public class Tab_accOne_PolUser extends Fragment {
             if (IsAccepting) {
                 Toast.makeText(getContext(), res + "", Toast.LENGTH_SHORT).show();
                 IsAccepting = false;
+
             } else {
                 GetJSONAccOne(res);
                 adapter_accone = new ArrayAdapter(getContext(), R.layout.custom_listview_accone, listAccOne) {
