@@ -80,6 +80,7 @@ public class Activity_EditProfile_PoleUser extends AppCompatActivity {
 
     }
 
+
     connect_EditPro.IshowEditProRes ishowEditProRes = new connect_EditPro.IshowEditProRes() {
         @Override
         public void EditProResult(String res) {
