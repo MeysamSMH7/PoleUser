@@ -12,6 +12,7 @@
     <string name="LinkWaiteForPrice">http://amlakeyekta.ir/pol/Req/requestWaitForPrice.php</string>
     <string name="LinkPayMoney">http://amlakeyekta.ir/pol/Req/requestPayMoney.php</string>
     <string name="LinkEditPro">http://amlakeyekta.ir/pol/User/editPro.php</string>
+    <string name="LinkShowAllFinishedWork">http://amlakeyekta.ir/pol/User/showAllFinishedWork.php</string>
 
     <!--login Activity-->
     <string name="edtPhoneNumber">شماره تلفن (بدون صفر)</string>
@@ -89,7 +90,6 @@
     <string name="ToastChoseDate">تاریخ رو انتخاب کن</string>
     <string name="ToastNotThisTime">این ساعت رو نمیتونی</string>
     <string name="ToastTimeIsNotRight">زمان رو درست کن</string>
-
 
 
     <string name="Toast">متن</string>
