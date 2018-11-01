@@ -294,7 +294,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.ToastFillAllBlanks), Toast.LENGTH_SHORT).show();
         } else if (!(PassWord.equals(RePassWord))) {
             Toast.makeText(this, getString(R.string.ToastRePassword), Toast.LENGTH_SHORT).show();
-        } else if (!(PassWord.length() == 8)) {
+        } else if (!(PassWord.length() >= 8)) {
             Toast.makeText(this, getString(R.string.ToastPassword8), Toast.LENGTH_SHORT).show();
         } else if (!(CodPosty.length() == 10)) {
             Toast.makeText(this, getString(R.string.ToastCodPost), Toast.LENGTH_SHORT).show();
