@@ -82,7 +82,6 @@ public class Activity_main_PolUser extends AppCompatActivity {
             }
         });
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_jafar);
         setSupportActionBar(toolbar);
 
