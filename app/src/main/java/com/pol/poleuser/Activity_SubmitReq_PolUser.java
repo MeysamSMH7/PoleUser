@@ -1,6 +1,7 @@
 package com.pol.poleuser;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -35,6 +36,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
     private String SubjectServer = "", DateDayServer = "", DateMonthServer = "", NameWeekServer = "", DateYearServer = "", PeriodTimeServer = "", AddressServer = "", UserIDServer = "", txtServer = "", StateNameServer = "";
     private SharedPreferences preferencesLogin;
     boolean TimeIsTrue = false;
+    private static int savePositionID = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,19 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
         gridViewDate.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
+
+
+//Change Color of the Cell *******************************************************************
+                parent.getChildAt(position).setBackgroundColor(Color.RED);
+
+// Set it back if it was clicked
+                if (savePositionID != -1 && savePositionID != position){
+                    parent.getChildAt(savePositionID).setBackgroundColor(0x00000000);
+                }
+// Save ID of position in grid for (IF)
+                savePositionID = position;
+
+
                 DateDayServer = arrayListDayS.get(position).toString();
                 DateMonthServer = arrayListMonthS.get(position).toString();
                 NameWeekServer = arrayListWeekName.get(position).toString();
@@ -193,8 +208,12 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
     connect_SubmitReq.ISubmitReq resultSubReq = new connect_SubmitReq.ISubmitReq() {
         @Override
         public void SubmitReqResult(String res) {
-            Toast.makeText(Activity_SubmitReq_PolUser.this, res + "", Toast.LENGTH_SHORT).show();
-            finish();
+            if (res.contains("OK")) {
+                Toast.makeText(Activity_SubmitReq_PolUser.this, getString(R.string.ToastReqSend), Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(Activity_SubmitReq_PolUser.this, getString(R.string.ToastReqNotSend), Toast.LENGTH_SHORT).show();
+            }
         }
     };
 

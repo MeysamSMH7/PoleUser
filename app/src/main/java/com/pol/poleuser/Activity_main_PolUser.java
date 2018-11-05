@@ -88,9 +88,6 @@ public class Activity_main_PolUser extends AppCompatActivity {
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigationview = (NavigationView) findViewById(R.id.navigationview);
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        navigationview = (NavigationView) findViewById(R.id.navigationview);
         navigationview.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

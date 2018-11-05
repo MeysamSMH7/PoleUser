@@ -119,7 +119,7 @@ public class Tab_accOne_PolUser extends Fragment {
                             TextView txtCustomlstAccOne = convertView.findViewById(R.id.txtCustomlstAccOne);
                             txtCustomlstAccOne.setText(listAccOne.get(position));
 
-                            Toast.makeText(getContext(), listAccOne+"", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getContext(), listAccOne+"", Toast.LENGTH_SHORT).show();
 
                             return convertView;
                         }
