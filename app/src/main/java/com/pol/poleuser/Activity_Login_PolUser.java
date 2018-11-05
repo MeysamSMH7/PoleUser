@@ -3,6 +3,7 @@ package com.pol.poleuser;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.pol.poleuser.classes.SpinnerClass;
+import com.pol.poleuser.classes.checkInternet;
 import com.pol.poleuser.connectClasses.connect_GetPass;
 import com.pol.poleuser.connectClasses.connect_LoginUser;
 import com.pol.poleuser.connectClasses.connect_SendSms;
@@ -52,12 +54,17 @@ public class Activity_Login_PolUser extends AppCompatActivity {
     private int countbtnClick = 0;
     private String FirstName = "", LastName = "", PhoneNum = "", PassWord = "", CodPosty = "", StateName = "", CityName = "", Address = "";
     private SharedPreferences preferencesLogin;
+    checkInternet internet;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_poluser);
         preferencesLogin = getSharedPreferences("polUser", 0);
+
+        internet = new checkInternet(this);
+
 
         //LinearLayout
         LinearLogin = (LinearLayout) findViewById(R.id.LinearLogin);
@@ -106,11 +113,17 @@ public class Activity_Login_PolUser extends AppCompatActivity {
     //Login **************************************************************************
 
     public void btnLoginOnClick(View view) {
-        PhoneNum = edtPhoneNumLogin.getText().toString();
-        PassWord = edtPassLogin.getText().toString();
+        if (!internet.CheckNetworkConnection()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.ToastCheckNetTitle));
+            builder.setMessage(getString(R.string.ToastCheckNetMessage));
+            builder.show();
+        }else {
+            PhoneNum = edtPhoneNumLogin.getText().toString();
+            PassWord = edtPassLogin.getText().toString();
 
-        new connect_LoginUser(getString(R.string.LinkLoginUser), resultLogin, PhoneNum, PassWord , "false").execute();
-
+            new connect_LoginUser(getString(R.string.LinkLoginUser), resultLogin, PhoneNum, PassWord, "false").execute();
+        }
     }
 
     public void btnRegisterLogin(View view) {
@@ -159,17 +172,24 @@ public class Activity_Login_PolUser extends AppCompatActivity {
     }
 
     public void btnSendCode(View view) {
-        edtGetCode.setText("");
-        PhoneNum = edtPhoneNumRegister.getText().toString();
-        edtPhoneNumRegister.setText("");
+        if (!internet.CheckNetworkConnection()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.ToastCheckNetTitle));
+            builder.setMessage(getString(R.string.ToastCheckNetMessage));
+            builder.show();
+        }else {
+            edtGetCode.setText("");
+            PhoneNum = edtPhoneNumRegister.getText().toString();
+            edtPhoneNumRegister.setText("");
 
 
-        if (PhoneNum.isEmpty() || !(PhoneNum.trim().length() == 10)) {
-            Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastWrongPhoneNum), Toast.LENGTH_SHORT).show();
-        } else {
+            if (PhoneNum.isEmpty() || !(PhoneNum.trim().length() == 10)) {
+                Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastWrongPhoneNum), Toast.LENGTH_SHORT).show();
+            } else {
 
-            new connect_LoginUser(getString(R.string.LinkLoginUser), ishowLoginRes, PhoneNum, "" , "true").execute();
+                new connect_LoginUser(getString(R.string.LinkLoginUser), ishowLoginRes, PhoneNum, "", "true").execute();
 
+            }
         }
     }
 
@@ -215,7 +235,9 @@ public class Activity_Login_PolUser extends AppCompatActivity {
     connect_SendSms.ISendSmsRes iSendSmsRes = new connect_SendSms.ISendSmsRes() {
         @Override
         public void loginUserResult(String res) {
-            Toast.makeText(Activity_Login_PolUser.this, res + "", Toast.LENGTH_SHORT).show();
+            if (!(res.contains("بدون خطا"))){
+                Toast.makeText(Activity_Login_PolUser.this, res + "", Toast.LENGTH_SHORT).show();
+            }
         }
     };
 
@@ -243,32 +265,39 @@ public class Activity_Login_PolUser extends AppCompatActivity {
     }
 
     public void btnCheckCode(View view) {
-        if (txtTimer.getText().toString().equals(getString(R.string.finishTimer))) {
-            LinearLogin.setVisibility(View.GONE);
-            LinearRegPhoneNum.setVisibility(View.VISIBLE);
-            LinearRegCheckCode.setVisibility(View.GONE);
-            LinearRegFinish.setVisibility(View.GONE);
-            LinearRegForgetPass.setVisibility(View.GONE);
+        if (!internet.CheckNetworkConnection()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.ToastCheckNetTitle));
+            builder.setMessage(getString(R.string.ToastCheckNetMessage));
+            builder.show();
+        }else {
+            if (txtTimer.getText().toString().equals(getString(R.string.finishTimer))) {
+                LinearLogin.setVisibility(View.GONE);
+                LinearRegPhoneNum.setVisibility(View.VISIBLE);
+                LinearRegCheckCode.setVisibility(View.GONE);
+                LinearRegFinish.setVisibility(View.GONE);
+                LinearRegForgetPass.setVisibility(View.GONE);
 
-            countDownTimer.cancel();
-        } else if (edtGetCode.getText().toString().equals(ranNum)) {
-            edtPhoneNumber.setText(PhoneNum);
-            edtPhoneNumber.setEnabled(false);
-            LinearLogin.setVisibility(View.GONE);
-            LinearRegPhoneNum.setVisibility(View.GONE);
-            LinearRegCheckCode.setVisibility(View.GONE);
-            LinearRegFinish.setVisibility(View.VISIBLE);
-            LinearRegForgetPass.setVisibility(View.GONE);
+                countDownTimer.cancel();
+            } else if (edtGetCode.getText().toString().equals(ranNum)) {
+                edtPhoneNumber.setText(PhoneNum);
+                edtPhoneNumber.setEnabled(false);
+                LinearLogin.setVisibility(View.GONE);
+                LinearRegPhoneNum.setVisibility(View.GONE);
+                LinearRegCheckCode.setVisibility(View.GONE);
+                LinearRegFinish.setVisibility(View.VISIBLE);
+                LinearRegForgetPass.setVisibility(View.GONE);
 
-            //Spinner for Register
-            SpinnerClass spinner = new SpinnerClass(Activity_Login_PolUser.this, spnState, spnCity,false);
-            spinner.spinner();
+                //Spinner for Register
+                SpinnerClass spinner = new SpinnerClass(Activity_Login_PolUser.this, spnState, spnCity, false);
+                spinner.spinner();
 
-        } else if (countbtnClick < 5) {
-            countbtnClick++;
-            Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastWrongCode), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastTooManyTry), Toast.LENGTH_SHORT).show();
+            } else if (countbtnClick < 5) {
+                countbtnClick++;
+                Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastWrongCode), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(Activity_Login_PolUser.this, getString(R.string.ToastTooManyTry), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -279,30 +308,36 @@ public class Activity_Login_PolUser extends AppCompatActivity {
     }
 
     public void btnFinishRegister(View view) {
-        FirstName = edtFirstName.getText().toString();
-        LastName = edtLastName.getText().toString();
-        PhoneNum = edtPhoneNumber.getText().toString();
-        PassWord = edtPassword.getText().toString();
-        String RePassWord = edtRePassword.getText().toString();
-        CodPosty = edtPostalCode.getText().toString();
-        StateName = SpinnerClass.StateName;
-        CityName = SpinnerClass.CityName;
-        Address = edtAddress.getText().toString();
+        if (!internet.CheckNetworkConnection()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.ToastCheckNetTitle));
+            builder.setMessage(getString(R.string.ToastCheckNetMessage));
+            builder.show();
+        }else {
+            FirstName = edtFirstName.getText().toString();
+            LastName = edtLastName.getText().toString();
+            PhoneNum = edtPhoneNumber.getText().toString();
+            PassWord = edtPassword.getText().toString();
+            String RePassWord = edtRePassword.getText().toString();
+            CodPosty = edtPostalCode.getText().toString();
+            StateName = SpinnerClass.StateName;
+            CityName = SpinnerClass.CityName;
+            Address = edtAddress.getText().toString();
 
 
-        if (FirstName.equals("") || LastName.equals("") || PassWord.equals("") || CodPosty.equals("") || Address.equals("")) {
-            Toast.makeText(this, getString(R.string.ToastFillAllBlanks), Toast.LENGTH_SHORT).show();
-        } else if (!(PassWord.equals(RePassWord))) {
-            Toast.makeText(this, getString(R.string.ToastRePassword), Toast.LENGTH_SHORT).show();
-        } else if (!(PassWord.length() >= 8)) {
-            Toast.makeText(this, getString(R.string.ToastPassword8), Toast.LENGTH_SHORT).show();
-        } else if (!(CodPosty.length() == 10)) {
-            Toast.makeText(this, getString(R.string.ToastCodPost), Toast.LENGTH_SHORT).show();
-        } else {
-            new connect_addUser(getString(R.string.LinkAddUser), resultAddUser, FirstName, LastName, PhoneNum, PassWord, CodPosty, StateName, CityName, Address).execute();
+            if (FirstName.equals("") || LastName.equals("") || PassWord.equals("") || CodPosty.equals("") || Address.equals("")) {
+                Toast.makeText(this, getString(R.string.ToastFillAllBlanks), Toast.LENGTH_SHORT).show();
+            } else if (!(PassWord.equals(RePassWord))) {
+                Toast.makeText(this, getString(R.string.ToastRePassword), Toast.LENGTH_SHORT).show();
+            } else if (!(PassWord.length() >= 8)) {
+                Toast.makeText(this, getString(R.string.ToastPassword8), Toast.LENGTH_SHORT).show();
+            } else if (!(CodPosty.length() == 10)) {
+                Toast.makeText(this, getString(R.string.ToastCodPost), Toast.LENGTH_SHORT).show();
+            } else {
+                new connect_addUser(getString(R.string.LinkAddUser), resultAddUser, FirstName, LastName, PhoneNum, PassWord, CodPosty, StateName, CityName, Address).execute();
+            }
+
         }
-
-
     }
 
     connect_addUser.IshowAddUserRes resultAddUser = new connect_addUser.IshowAddUserRes() {
@@ -337,11 +372,16 @@ public class Activity_Login_PolUser extends AppCompatActivity {
     }
 
     public void btnGetPass(View view) {
+        if (!internet.CheckNetworkConnection()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.ToastCheckNetTitle));
+            builder.setMessage(getString(R.string.ToastCheckNetMessage));
+            builder.show();
+        }else {
+            PhoneNum = edtPhoneNumberForget.getText().toString();
 
-        PhoneNum = edtPhoneNumberForget.getText().toString();
-
-        new connect_GetPass(getString(R.string.LinkGetPass), resultGetPass, PhoneNum).execute();
-
+            new connect_GetPass(getString(R.string.LinkGetPass), resultGetPass, PhoneNum).execute();
+        }
     }
 
     connect_GetPass.IgetPassRes resultGetPass = new connect_GetPass.IgetPassRes() {

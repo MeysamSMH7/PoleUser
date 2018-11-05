@@ -137,7 +137,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
                             Toast.makeText(Activity_SubmitReq_PolUser.this, getString(R.string.ToastChoseDate), Toast.LENGTH_SHORT).show();
                             radioGPSubmitReq.clearCheck();
                         } else if (IsCurrentday) {
-                            if (hour < 12) {
+                            if (hour < 12 || hour > 20) {
                                 PeriodTimeServer = getString(R.string.radiobtnPeriodTime1SubReq);
                             } else {
                                 Toast.makeText(Activity_SubmitReq_PolUser.this, getString(R.string.ToastNotThisTime), Toast.LENGTH_SHORT).show();
@@ -154,7 +154,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
                             Toast.makeText(Activity_SubmitReq_PolUser.this, getString(R.string.ToastChoseDate), Toast.LENGTH_SHORT).show();
                             radioGPSubmitReq.clearCheck();
                         } else if (IsCurrentday) {
-                            if (hour < 17) {
+                            if (hour < 17 || hour > 20) {
                                 PeriodTimeServer = getString(R.string.radiobtnPeriodTime2SubReq);
                             } else {
                                 Toast.makeText(Activity_SubmitReq_PolUser.this, getString(R.string.ToastNotThisTime), Toast.LENGTH_SHORT).show();
@@ -171,7 +171,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
                             Toast.makeText(Activity_SubmitReq_PolUser.this, getString(R.string.ToastChoseDate), Toast.LENGTH_SHORT).show();
                             radioGPSubmitReq.clearCheck();
                         } else if (IsCurrentday) {
-                            if (hour < 20) {
+                            if (hour < 20 || hour > 20) {
                                 PeriodTimeServer = getString(R.string.radiobtnPeriodTime3SubReq);
                             } else {
                                 Toast.makeText(Activity_SubmitReq_PolUser.this, getString(R.string.ToastNotThisTime), Toast.LENGTH_SHORT).show();

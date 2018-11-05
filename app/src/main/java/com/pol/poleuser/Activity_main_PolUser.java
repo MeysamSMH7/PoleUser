@@ -93,9 +93,10 @@ public class Activity_main_PolUser extends AppCompatActivity {
                 int id = item.getItemId();
                 switch (id) {
 
-                    case R.id.itmLogOff:
+                    case R.id.itmEditProfile:
 
-                        AlertDialogLogout();
+                        Intent intent = new Intent(Activity_main_PolUser.this, Activity_EditProfile_PoleUser.class);
+                        startActivity(intent);
 
                         break;
 
@@ -106,10 +107,42 @@ public class Activity_main_PolUser extends AppCompatActivity {
 
                         break;
 
-                    case R.id.first7:
+                    case R.id.FAQ:
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Activity_main_PolUser.this);
+                        builder.create();
+                        builder.setTitle("قوانین");
+                        builder.setMessage("متن قوانین");
+                        builder.show();
+                        break;
 
-                        Intent intent = new Intent(Activity_main_PolUser.this, Activity_EditProfile_PoleUser.class);
-                        startActivity(intent);
+                    case R.id.itmAboutUs:
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(Activity_main_PolUser.this);
+                        builder1.create();
+                        builder1.setTitle("درباره ما");
+                        builder1.setMessage("متن درباره ما");
+                        builder1.show();
+                        break;
+
+                    case R.id.itmTellUs:
+                        AlertDialog.Builder builder2 = new AlertDialog.Builder(Activity_main_PolUser.this);
+                        builder2.create();
+                        builder2.setTitle("تماس با ما");
+                        builder2.setMessage("متن تماس با ما");
+                        builder2.show();
+                        break;
+
+                    case R.id.itmInvite:
+                        AlertDialog.Builder builder3 = new AlertDialog.Builder(Activity_main_PolUser.this);
+                        builder3.create();
+                        builder3.setTitle("دعوت به همکاری");
+                        builder3.setMessage("متن دعوت به همکاری");
+                        builder3.show();
+                        break;
+
+
+                    case R.id.itmLogOff:
+
+                        AlertDialogLogout();
 
                         break;
                 }
@@ -124,8 +157,8 @@ public class Activity_main_PolUser extends AppCompatActivity {
     private void AlertDialogLogout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Activity_main_PolUser.this);
         builder.create();
-        builder.setTitle("خروج از حساب کاربری");
-        builder.setMessage("آیا میخواهید از حساب کاربریتان خارج شوید؟");
+        builder.setTitle(getString(R.string.alertTitleLogOff));
+        builder.setMessage(getString(R.string.alertMessageLogOff));
         builder.setPositiveButton("آره", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

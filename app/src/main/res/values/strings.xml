@@ -12,6 +12,7 @@
     <string name="LinkWaiteForPrice">http://amlakeyekta.ir/pol/Req/requestWaitForPrice.php</string>
     <string name="LinkPayMoney">http://amlakeyekta.ir/pol/Req/requestPayMoney.php</string>
     <string name="LinkEditPro">http://amlakeyekta.ir/pol/User/editPro.php</string>
+    <string name="LinkShowAllFinishedWork">http://amlakeyekta.ir/pol/User/showAllFinishedWork.php</string>
 
     <!--login Activity-->
     <string name="edtPhoneNumber">شماره تلفن (بدون صفر)</string>
@@ -67,13 +68,6 @@
     <string name="txtShowNoWaitMoney">شما هیچ صورت حسابی برای پرداخت ندارید!</string>
 
 
-    <!--EditProfile-->
-    <string name="btnClose">بستن</string>
-    <string name="btnSaveEdit">ذخیره ی تغییرات</string>
-
-
-
-
     <!--Toast-->
     <string name="ToastFillAllBlanks">لطفا تمام فیلد های مورد نظر را پر کنید</string>
     <string name="ToastRePassword">رمز عبور ها باهم تطابق ندارند!</string>
@@ -89,7 +83,7 @@
     <string name="ToastWrongCode">کد غلط می باشد!</string>
     <string name="ToastTooManyTry">بیش از اندازه امتحان کردید!</string>
     <string name="ToastdoneRegister">ثبت نام شما با موفقیت انجام شد</string>
-    <string name="ToastdoneNotRegister">سیستم با مشکل مواجه شده است!</string>
+    <string name="ToastdoneNotRegister">موفق نشدید!</string>
     <string name="ToastNoPhone">شماره وارد شده موجود نمی باشد!</string>
     <string name="ToastNothingToShow">"چیزی ارائه نشده"</string>
 
@@ -97,7 +91,36 @@
     <string name="ToastNotThisTime">این ساعت رو نمیتونی</string>
     <string name="ToastTimeIsNotRight">زمان رو درست کن</string>
 
-    <string name="ToastReqSend">درخواست شما ثبت شد</string>
-    <string name="ToastReqNotSend">درخواست شما ثبت نشد!</string>
+
+    <string name="Toast">متن</string>
+
+
+
+    <string name="btnClose">انصراف</string>
+    <string name="btnSaveEdit">ثبت اعمال تغییرات</string>
+
+
+
+    <string name="itmEditProfile">ویرایش پروفایل</string>
+    <string name="itmShowAllFinished">درخواست های تمام شده</string>
+    <string name="FAQ">قوانین و مقررات</string>
+    <string name="itmAboutUs">درباره ما</string>
+    <string name="itmTellUs">تماس با ما</string>
+    <string name="itmInvite">دعوت به همکاری</string>
+    <string name="itmLogOff">خروج از حساب کاربری</string>
+
+    <string name="ToastCheckNetTitle">مشکل اینترنت!</string>
+    <string name="ToastCheckNetMessage">لطفا اتصال خود به اینترنت را چک کنید</string>
+
+
+    <string name="alertTitleLogOff">خروج!</string>
+    <string name="alertMessageLogOff">آیا میخواهید از حساب خود خارج شوید؟</string>
+
+
+    <string name="ToastReqSend">درخواست شما ثبت گردید</string>
+    <string name="ToastReqNotSend">با مشکل رو به رو شد!</string>
+
+
+
 
 </resources>
