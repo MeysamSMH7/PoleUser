@@ -2,6 +2,7 @@ package com.pol.poleuser;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.pol.poleuser.Adapters.Adpater_Time;
 import com.pol.poleuser.classes.CalendarTool;
+import com.pol.poleuser.classes.checkInternet;
 import com.pol.poleuser.connectClasses.connect_SubmitReq;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
     private SharedPreferences preferencesLogin;
     boolean TimeIsTrue = false;
     private static int savePositionID = -1;
+    checkInternet internet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
         AddressServer = preferencesLogin.getString("Address_User", "");
         UserIDServer = preferencesLogin.getInt("ID_User", 0) + "";
         SubjectServer = getIntent().getStringExtra("Subject");
+
+        internet = new checkInternet(this);
 
         //Create Objects *************************************************************************
         CalendarTool calendarTool = new CalendarTool();
@@ -100,7 +105,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
                 parent.getChildAt(position).setBackgroundColor(Color.RED);
 
 // Set it back if it was clicked
-                if (savePositionID != -1 && savePositionID != position){
+                if (savePositionID != -1 && savePositionID != position) {
                     parent.getChildAt(savePositionID).setBackgroundColor(0x00000000);
                 }
 // Save ID of position in grid for (IF)
@@ -191,17 +196,22 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
 
 
     public void SubmitReq(View view) {
-        txtServer = edtExplainSubmitReq.getText().toString();
 
 
-        if (txtServer.equals("") || AddressServer.equals("")) {
-            Toast.makeText(this, getString(R.string.ToastFillAllBlanks), Toast.LENGTH_SHORT).show();
-        } else if (!TimeIsTrue) {
-            Toast.makeText(this, getString(R.string.ToastTimeIsNotRight), Toast.LENGTH_SHORT).show();
+        if (!internet.CheckNetworkConnection()) {
+            checkNet();
         } else {
-            new connect_SubmitReq(getString(R.string.LinkRequestUser), resultSubReq, SubjectServer, DateDayServer, DateMonthServer, NameWeekServer, DateYearServer, PeriodTimeServer, AddressServer, UserIDServer, txtServer, StateNameServer).execute();
-        }
 
+            txtServer = edtExplainSubmitReq.getText().toString();
+
+            if (txtServer.equals("") || AddressServer.equals("")) {
+                Toast.makeText(this, getString(R.string.ToastFillAllBlanks), Toast.LENGTH_SHORT).show();
+            } else if (!TimeIsTrue) {
+                Toast.makeText(this, getString(R.string.ToastTimeIsNotRight), Toast.LENGTH_SHORT).show();
+            } else {
+                new connect_SubmitReq(getString(R.string.LinkRequestUser), resultSubReq, SubjectServer, DateDayServer, DateMonthServer, NameWeekServer, DateYearServer, PeriodTimeServer, AddressServer, UserIDServer, txtServer, StateNameServer).execute();
+            }
+        }
 
     }
 
@@ -216,5 +226,14 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
             }
         }
     };
+
+
+    private void checkNet() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Activity_SubmitReq_PolUser.this);
+        builder.setTitle(getString(R.string.ToastCheckNetTitle));
+        builder.setMessage(getString(R.string.ToastCheckNetMessage));
+        builder.show();
+    }
+
 
 }

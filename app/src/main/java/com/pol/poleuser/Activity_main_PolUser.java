@@ -20,9 +20,11 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+
 import com.pol.poleuser.Fragments.Tab_WaitMoney_PolUser;
 import com.pol.poleuser.Fragments.Tab_accOne_PolUser;
 import com.pol.poleuser.Fragments.Tab_main_PolUser;
+import com.pol.poleuser.classes.checkInternet;
 
 public class Activity_main_PolUser extends AppCompatActivity {
 
@@ -35,10 +37,14 @@ public class Activity_main_PolUser extends AppCompatActivity {
     NavigationView navigationview;
     SharedPreferences sharedPreferences;
 
+    checkInternet internet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.page_tolbar_dr);
+
+        internet = new checkInternet(this);
 
         sharedPreferences = getSharedPreferences("polUser", 0);
         getVersionInfo();
@@ -101,48 +107,47 @@ public class Activity_main_PolUser extends AppCompatActivity {
                         break;
 
                     case R.id.itmShowAllFinished:
-
-                        Intent intent1 = new Intent(Activity_main_PolUser.this, Activity_ShowAllFinished_PoleUser.class);
-                        startActivity(intent1);
-
+                        if (!internet.CheckNetworkConnection()) {
+                            checkNet();
+                        } else {
+                            Intent intent1 = new Intent(Activity_main_PolUser.this, Activity_ShowAllFinished_PoleUser.class);
+                            startActivity(intent1);
+                        }
                         break;
 
                     case R.id.FAQ:
-                        AlertDialog.Builder builder = new AlertDialog.Builder(Activity_main_PolUser.this);
-                        builder.create();
-                        builder.setTitle("قوانین");
-                        builder.setMessage("متن قوانین");
-                        builder.show();
+
+                        AlertDialogDraweLayout("قوانین", "متن قوانین");
+
                         break;
 
                     case R.id.itmAboutUs:
-                        AlertDialog.Builder builder1 = new AlertDialog.Builder(Activity_main_PolUser.this);
-                        builder1.create();
-                        builder1.setTitle("درباره ما");
-                        builder1.setMessage("متن درباره ما");
-                        builder1.show();
+
+                        AlertDialogDraweLayout("درباره ما", "متن درباره ما");
+
                         break;
 
                     case R.id.itmTellUs:
-                        AlertDialog.Builder builder2 = new AlertDialog.Builder(Activity_main_PolUser.this);
-                        builder2.create();
-                        builder2.setTitle("تماس با ما");
-                        builder2.setMessage("متن تماس با ما");
-                        builder2.show();
+
+                        AlertDialogDraweLayout("تماس با ما", "متن تماس با ما");
+
                         break;
 
                     case R.id.itmInvite:
-                        AlertDialog.Builder builder3 = new AlertDialog.Builder(Activity_main_PolUser.this);
-                        builder3.create();
-                        builder3.setTitle("دعوت به همکاری");
-                        builder3.setMessage("متن دعوت به همکاری");
-                        builder3.show();
+
+                        AlertDialogDraweLayout("دعوت به همکاری", "متن دعوت به همکاری");
+
                         break;
 
 
                     case R.id.itmLogOff:
 
-                        AlertDialogLogout();
+                        if (!internet.CheckNetworkConnection()) {
+                            checkNet();
+                        } else {
+                            AlertDialogLogout();
+                        }
+
 
                         break;
                 }
@@ -153,6 +158,17 @@ public class Activity_main_PolUser extends AppCompatActivity {
 
 
     }
+
+    private void AlertDialogDraweLayout(String Title, String Message) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(Activity_main_PolUser.this);
+        builder.setTitle(Title);
+        builder.setMessage(Message);
+        builder.create();
+        builder.show();
+
+    }
+
 
     private void AlertDialogLogout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Activity_main_PolUser.this);
@@ -235,6 +251,12 @@ public class Activity_main_PolUser extends AppCompatActivity {
         //Toast.makeText(this, String.format("Version name = %s \nVersion code = %d", versionName, versionCode) + "", Toast.LENGTH_SHORT).show();
     }
 
+    private void checkNet() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Activity_main_PolUser.this);
+        builder.setTitle(getString(R.string.ToastCheckNetTitle));
+        builder.setMessage(getString(R.string.ToastCheckNetMessage));
+        builder.show();
+    }
 
 }
 

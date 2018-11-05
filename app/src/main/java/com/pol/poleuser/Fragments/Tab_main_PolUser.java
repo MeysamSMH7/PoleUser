@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,10 @@ import android.widget.Toast;
 
 import com.pol.poleuser.Activity_SubCategory_PolUser;
 import com.pol.poleuser.Activity_SubmitReq_PolUser;
+import com.pol.poleuser.Activity_main_PolUser;
 import com.pol.poleuser.Adapters.MainPolUserGrid;
 import com.pol.poleuser.R;
+import com.pol.poleuser.classes.checkInternet;
 import com.pol.poleuser.connectClasses.connect_GetSubSubjects;
 import com.pol.poleuser.varClass.varClass;
 
@@ -43,10 +46,13 @@ public class Tab_main_PolUser extends Fragment {
     private AutoCompleteTextView autoComTxtViewMain;
     ArrayAdapter<String> adapterSearch;
     List<String> lstSearch;
+    checkInternet internet;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ft_main_layout_poluser, container, false);
+
+        internet = new checkInternet(getContext());
 
         preferencesMain = getActivity().getSharedPreferences("polUser", 0);
         StatePre = preferencesMain.getString("StateName_User", "aaa");
@@ -64,13 +70,20 @@ public class Tab_main_PolUser extends Fragment {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
 
-                if (GetJSONArraySubSubjects(varClass.STMainPage1[position]).equals("null") || GetJSONArraySubSubjects(varClass.STMainPage1[position]).equals("")) {
-                    Toast.makeText(view.getContext(), "چیزی ارائه نشده", Toast.LENGTH_SHORT).show();
+                if (!internet.CheckNetworkConnection()) {
+                    checkNet();
                 } else {
-                    Intent intent = new Intent(view.getContext(), Activity_SubCategory_PolUser.class);
-                    intent.putExtra("NameCategory", varClass.STMainPage1[position]);
-                    intent.putExtra("SubSubject", GetJSONArraySubSubjects(varClass.STMainPage1[position]));
-                    startActivity(intent);
+
+                    if (GetJSONArraySubSubjects(varClass.STMainPage1[position]).equals("null") || GetJSONArraySubSubjects(varClass.STMainPage1[position]).equals("")) {
+                        Toast.makeText(view.getContext(), "چیزی ارائه نشده", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(view.getContext(), Activity_SubCategory_PolUser.class);
+                        intent.putExtra("NameCategory", varClass.STMainPage1[position]);
+                        intent.putExtra("SubSubject", GetJSONArraySubSubjects(varClass.STMainPage1[position]));
+                        startActivity(intent);
+                    }
+
+
                 }
             }
         });
@@ -193,6 +206,13 @@ public class Tab_main_PolUser extends Fragment {
             default:
                 return "null";
         }
+    }
+
+    private void checkNet() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(getString(R.string.ToastCheckNetTitle));
+        builder.setMessage(getString(R.string.ToastCheckNetMessage));
+        builder.show();
     }
 
 
