@@ -97,65 +97,40 @@ public class Activity_main_PolUser extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                switch (id) {
 
-                    case R.id.itmEditProfile:
+                switchNavigationView(id);
 
-                        Intent intent = new Intent(Activity_main_PolUser.this, Activity_EditProfile_PoleUser.class);
-                        startActivity(intent);
-
-                        break;
-
-                    case R.id.itmShowAllFinished:
-                        if (!internet.CheckNetworkConnection()) {
-                            checkNet();
-                        } else {
-                            Intent intent1 = new Intent(Activity_main_PolUser.this, Activity_ShowAllFinished_PoleUser.class);
-                            startActivity(intent1);
-                        }
-                        break;
-
-                    case R.id.FAQ:
-
-                        AlertDialogDraweLayout("قوانین", "متن قوانین");
-
-                        break;
-
-                    case R.id.itmAboutUs:
-
-                        AlertDialogDraweLayout("درباره ما", "متن درباره ما");
-
-                        break;
-
-                    case R.id.itmTellUs:
-
-                        AlertDialogDraweLayout("تماس با ما", "متن تماس با ما");
-
-                        break;
-
-                    case R.id.itmInvite:
-
-                        AlertDialogDraweLayout("دعوت به همکاری", "متن دعوت به همکاری");
-
-                        break;
-
-
-                    case R.id.itmLogOff:
-
-                        if (!internet.CheckNetworkConnection()) {
-                            checkNet();
-                        } else {
-                            AlertDialogLogout();
-                        }
-
-
-                        break;
-                }
                 drawerLayout.closeDrawer(Gravity.RIGHT);
                 return true;
             }
         });
 
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menu_dr) {
+            drawerLayout.openDrawer(Gravity.RIGHT);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+            drawerLayout.closeDrawer(Gravity.RIGHT);
+        } else {
+            super.onBackPressed();
+        }
 
     }
 
@@ -168,7 +143,6 @@ public class Activity_main_PolUser extends AppCompatActivity {
         builder.show();
 
     }
-
 
     private void AlertDialogLogout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Activity_main_PolUser.this);
@@ -208,35 +182,6 @@ public class Activity_main_PolUser extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.menu_dr) {
-            drawerLayout.openDrawer(Gravity.RIGHT);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
-            drawerLayout.closeDrawer(Gravity.RIGHT);
-        } else {
-            super.onBackPressed();
-        }
-
-    }
-
     private void getVersionInfo() {
         String versionName = "";
         int versionCode = -1;
@@ -256,6 +201,64 @@ public class Activity_main_PolUser extends AppCompatActivity {
         builder.setTitle(getString(R.string.ToastCheckNetTitle));
         builder.setMessage(getString(R.string.ToastCheckNetMessage));
         builder.show();
+    }
+
+    private void switchNavigationView(int ID) {
+
+        switch (ID) {
+
+            case R.id.itmEditProfile:
+
+                Intent intent = new Intent(Activity_main_PolUser.this, Activity_EditProfile_PoleUser.class);
+                startActivity(intent);
+
+                break;
+
+            case R.id.itmShowAllFinished:
+                if (!internet.CheckNetworkConnection()) {
+                    checkNet();
+                } else {
+                    Intent intent1 = new Intent(Activity_main_PolUser.this, Activity_ShowAllFinished_PoleUser.class);
+                    startActivity(intent1);
+                }
+                break;
+
+            case R.id.FAQ:
+
+                AlertDialogDraweLayout("قوانین", "متن قوانین");
+
+                break;
+
+            case R.id.itmAboutUs:
+
+                AlertDialogDraweLayout("درباره ما", "متن درباره ما");
+
+                break;
+
+            case R.id.itmTellUs:
+
+                AlertDialogDraweLayout("تماس با ما", "متن تماس با ما");
+
+                break;
+
+            case R.id.itmInvite:
+
+                AlertDialogDraweLayout("دعوت به همکاری", "متن دعوت به همکاری");
+
+                break;
+
+
+            case R.id.itmLogOff:
+
+                if (!internet.CheckNetworkConnection()) {
+                    checkNet();
+                } else {
+                    AlertDialogLogout();
+                }
+
+                break;
+        }
+
     }
 
 }
