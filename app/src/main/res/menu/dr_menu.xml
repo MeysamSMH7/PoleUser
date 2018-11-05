@@ -18,7 +18,7 @@
         android:title="قوانین و مقررات" />
 
     <item
-        android:id="@+id/first6"
+        android:id="@+id/itmShowAllFinished"
         android:icon="@mipmap/ic_launcher"
         android:title="تماس با پشتیبان" />
     <item

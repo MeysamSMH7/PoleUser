@@ -17,20 +17,21 @@ public class connect_AcceptOne extends AsyncTask {
     private connect_AcceptOne.IAcceptOne _IAcceptOneResult;
     StringBuilder stringBuilder;
 
-    public connect_AcceptOne(String link, connect_AcceptOne.IAcceptOne result, int UserID, int IDPost) {
+    public connect_AcceptOne(String link, connect_AcceptOne.IAcceptOne result, int UserID,
+        int IDPost){
         this.link = link;
         this.UserID = UserID;
         this.IDPost = IDPost;
         _IAcceptOneResult = result;
     }
 
-    public interface IAcceptOne {
-        public void getAcceptOneResult(String res);
-    }
+        public interface IAcceptOne {
+            public void getAcceptOneResult(String res);
+        }
 
 
-    @Override
-    protected Object doInBackground(Object[] objects) {
+        @Override
+        protected Object doInBackground (Object[]objects){
 
         try {
 
@@ -62,8 +63,8 @@ public class connect_AcceptOne extends AsyncTask {
         return null;
     }
 
-    @Override
-    protected void onPostExecute(Object o) {
+        @Override
+        protected void onPostExecute (Object o){
         super.onPostExecute(o);
         try {
             if (_IAcceptOneResult != null) {
@@ -74,4 +75,5 @@ public class connect_AcceptOne extends AsyncTask {
             e.printStackTrace();
         }
     }
+
 }

@@ -100,6 +100,13 @@ public class Activity_main_PolUser extends AppCompatActivity {
 
                         break;
 
+                    case R.id.itmShowAllFinished:
+
+                        Intent intent1 = new Intent(Activity_main_PolUser.this, Activity_ShowAllFinished_PoleUser.class);
+                        startActivity(intent1);
+
+                        break;
+
                     case R.id.first7:
 
                         Intent intent = new Intent(Activity_main_PolUser.this, Activity_EditProfile_PoleUser.class);
