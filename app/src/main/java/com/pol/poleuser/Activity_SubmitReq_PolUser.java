@@ -127,6 +127,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
             }
         });
 
+
         gridViewDate.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
