@@ -14,7 +14,7 @@ public class connect_LoginUser extends AsyncTask {
     public String link = "";
     public String PhoneNum = "";
     public String PassWord = "";
-    public String checkNum;
+    public String checkNum = "";
     private connect_LoginUser.IshowLoginRes _IAddUserResult;
     StringBuilder stringBuilder;
 

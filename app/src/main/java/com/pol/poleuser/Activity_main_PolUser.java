@@ -1,6 +1,7 @@
 package com.pol.poleuser;
 
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -237,7 +238,8 @@ public class Activity_main_PolUser extends AppCompatActivity {
 
             case R.id.itmTellUs:
 
-                AlertDialogDraweLayout("تماس با ما", "متن تماس با ما");
+                Intent intent1 = new Intent(Activity_main_PolUser.this, Activity_Ticket_PolUser.class);
+                startActivity(intent1);
 
                 break;
 
