@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,67 +9,94 @@
 
 
     <!--login-->
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/LinearLogin"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="16dp">
 
         <EditText
             android:id="@+id/edtPhoneNumLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="265dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="16dp"
             android:gravity="center"
+            android:hint="@string/edtPhoneNumber"
             android:inputType="number"
-            android:hint="@string/edtPhoneNumber" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="171dp" />
 
         <EditText
             android:id="@+id/edtPassLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:hint="@string/edtPassword"
             android:inputType="textPassword"
-            android:hint="@string/edtPassword" />
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="225dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:weightSum="10">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:onClick="btnRegisterLogin"
-                android:text="@string/btnRegister" />
+        <Button
+            android:layout_width="406dp"
+            android:layout_height="58dp"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="4"
+            android:onClick="btnRegisterLogin"
+            android:text="@string/btnRegister"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:onClick="btnLoginOnClick"
-                android:text="@string/btnLogin" />
+        <Button
+            android:layout_width="132dp"
+            android:layout_height="58dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="4"
+            android:onClick="btnLoginOnClick"
+            android:text="@string/btnLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="290dp" />
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:onClick="txtForgetPass"
+            android:text="@string/txtForgetPass"
+            android:textColor="@color/ForgetPassColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.839"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="379dp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:onClick="txtForgetPass"
-                android:text="@string/txtForgetPass"
-                android:textColor="@color/ForgetPassColor" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="108dp"
+            android:layout_height="89dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
+            app:layout_constraintBottom_toTopOf="@+id/edtPhoneNumLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.504"
+            app:srcCompat="@android:drawable/ic_menu_gallery" />
 
-        </LinearLayout>
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <!--register ==> PhoneNumber-->
     <LinearLayout
@@ -313,4 +340,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -147,6 +147,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
                         } else if (IsCurrentday) {
                             if (hour < 12 || hour > 20) {
                                 PeriodTimeServer = getString(R.string.radiobtnPeriodTime1SubReq);
+                                TimeIsTrue = true;
                             } else {
                                 Toast.makeText(Activity_SubmitReq_PolUser.this, getString(R.string.ToastNotThisTime), Toast.LENGTH_SHORT).show();
                                 radioGPSubmitReq.clearCheck();
@@ -164,6 +165,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
                         } else if (IsCurrentday) {
                             if (hour < 17 || hour > 20) {
                                 PeriodTimeServer = getString(R.string.radiobtnPeriodTime2SubReq);
+                                TimeIsTrue = true;
                             } else {
                                 Toast.makeText(Activity_SubmitReq_PolUser.this, getString(R.string.ToastNotThisTime), Toast.LENGTH_SHORT).show();
                                 radioGPSubmitReq.clearCheck();
@@ -181,6 +183,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
                         } else if (IsCurrentday) {
                             if (hour < 20 || hour > 20) {
                                 PeriodTimeServer = getString(R.string.radiobtnPeriodTime3SubReq);
+                                TimeIsTrue = true;
                             } else {
                                 Toast.makeText(Activity_SubmitReq_PolUser.this, getString(R.string.ToastNotThisTime), Toast.LENGTH_SHORT).show();
                                 radioGPSubmitReq.clearCheck();
@@ -193,8 +196,6 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
 
