@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import java.util.Calendar;
 public class Activity_SubmitReq_PolUser extends AppCompatActivity {
 
     //Public Variable ****************************************************************
+    private AlertDialog alertDialogFinal;
     private TextView txtShowReqSubmitReq;
     private EditText edtExplainSubmitReq, edtAddressSubmitReq;
     private RadioGroup radioGPSubmitReq;
@@ -197,7 +199,6 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
 
     public void SubmitReq(View view) {
 
-
         if (!internet.CheckNetworkConnection()) {
             checkNet();
         } else {
@@ -209,7 +210,7 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
             } else if (!TimeIsTrue) {
                 Toast.makeText(this, getString(R.string.ToastTimeIsNotRight), Toast.LENGTH_SHORT).show();
             } else {
-                new connect_SubmitReq(getString(R.string.LinkRequestUser), resultSubReq, SubjectServer, DateDayServer, DateMonthServer, NameWeekServer, DateYearServer, PeriodTimeServer, AddressServer, UserIDServer, txtServer, StateNameServer).execute();
+                AlertDialogFinal();
             }
         }
 
@@ -235,5 +236,40 @@ public class Activity_SubmitReq_PolUser extends AppCompatActivity {
         builder.show();
     }
 
+    private void AlertDialogFinal() {
+        AlertDialog.Builder builderFinal = new AlertDialog.Builder(Activity_SubmitReq_PolUser.this);
+        LinearLayout linearLayoutFinale = (LinearLayout) getLayoutInflater().inflate(R.layout.custom_final_send, null, false);
+
+        TextView txtCustomAlert_finalsend = linearLayoutFinale.findViewById(R.id.txtCustomAlert_finalsend);
+        Button btnCustomAlert_finalsend_cancel = linearLayoutFinale.findViewById(R.id.btnCustomAlert_finalsend_cancel);
+        Button btnCustomAlert_finalsend_send = linearLayoutFinale.findViewById(R.id.btnCustomAlert_finalsend_send);
+
+        txtCustomAlert_finalsend.setText("" +
+                "موضوع: " + SubjectServer + "\n" +
+                "تاریخ: " + DateDayServer + "/" + DateMonthServer + "/" + DateYearServer + "\t" + NameWeekServer + "\n" +
+                "بازه زمانی: " + PeriodTimeServer + "\n" +
+                "آدرس: " + AddressServer + "\n" +
+                "درخواست: " + txtServer + "\n" +
+                "");
+
+        btnCustomAlert_finalsend_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new connect_SubmitReq(getString(R.string.LinkRequestUser), resultSubReq, SubjectServer, DateDayServer, DateMonthServer, NameWeekServer, DateYearServer, PeriodTimeServer, AddressServer, UserIDServer, txtServer, StateNameServer).execute();
+
+            }
+        });
+
+        btnCustomAlert_finalsend_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialogFinal.dismiss();
+            }
+        });
+
+        builderFinal.setView(linearLayoutFinale);
+        alertDialogFinal = builderFinal.create();
+        alertDialogFinal.show();
+    }
 
 }
