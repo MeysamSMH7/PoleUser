@@ -19,11 +19,11 @@
 
 
     <!--login Activity-->
-    <string name="edtPhoneNumber">شماره تلفن (بدون صفر)</string>
+    <string name="edtPhoneNumber">شماره تلفن</string>
     <string name="edtPassword">رمز عبور</string>
     <string name="btnLogin">ورود</string>
     <string name="btnRegister">ثبت نام</string>
-    <string name="txtForgetPass">آیا رمز خود را فراموش کرده اید؟</string>
+    <string name="txtForgetPass">رمز عبور را فراموش کرده ام</string>
 
 
     <!--btnRegister PhoneNum-->

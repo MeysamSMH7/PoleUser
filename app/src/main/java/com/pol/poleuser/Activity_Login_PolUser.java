@@ -3,11 +3,14 @@ package com.pol.poleuser;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -28,10 +31,11 @@ public class Activity_Login_PolUser extends AppCompatActivity {
     public String getDataServerLogin = "";
 
     //LinearLayout
-    private LinearLayout LinearLogin, LinearRegPhoneNum, LinearRegCheckCode, LinearRegFinish, LinearRegForgetPass;
-
+    private LinearLayout  LinearRegPhoneNum, LinearRegCheckCode, LinearRegFinish, LinearRegForgetPass;
+    private ConstraintLayout LinearLogin;
     //Login
     private EditText edtPhoneNumLogin, edtPassLogin;
+    private TextInputLayout input_layout_edtPhoneNumLogin , input_layout_edtPassLogin;
 
     //LinearRegPhoneNum
     private EditText edtPhoneNumRegister;
@@ -67,7 +71,7 @@ public class Activity_Login_PolUser extends AppCompatActivity {
 
 
         //LinearLayout
-        LinearLogin = (LinearLayout) findViewById(R.id.LinearLogin);
+        LinearLogin =  findViewById(R.id.LinearLogin);
         LinearRegPhoneNum = (LinearLayout) findViewById(R.id.LinearRegPhoneNum);
         LinearRegCheckCode = (LinearLayout) findViewById(R.id.LinearRegCheckCode);
         LinearRegFinish = (LinearLayout) findViewById(R.id.LinearRegFinish);
@@ -76,6 +80,10 @@ public class Activity_Login_PolUser extends AppCompatActivity {
         //Login
         edtPhoneNumLogin = (EditText) findViewById(R.id.edtPhoneNumLogin);
         edtPassLogin = (EditText) findViewById(R.id.edtPassLogin);
+
+        input_layout_edtPhoneNumLogin = findViewById(R.id.input_layout_edtPhoneNumLogin);
+        input_layout_edtPassLogin = findViewById(R.id.input_layout_edtPassLogin);
+
 
         //LinearRegPhoneNum
         edtPhoneNumRegister = (EditText) findViewById(R.id.edtPhoneNumRegister);

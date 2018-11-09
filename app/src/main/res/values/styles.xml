@@ -6,4 +6,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--<style name="EditTextTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--<item name="edtColorNormal">@color/edtColorNormal</item>-->
+        <!--<item name="edtColorActivated">#4169E1</item>-->
+    <!--</style>-->
+
+    <style name="EditTextTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/edtColorNormal</item>
+        <item name="colorControlActivated">@color/edtColorActivated</item>
+        <item name="colorControlHighlight">@color/colorWhite</item>
+    </style>
+
 </resources>
